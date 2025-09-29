@@ -28,6 +28,7 @@ body {
   background: var(--color-fondo);
   color: var(--color-texto);
   min-height: 100vh;
+  transition: all ease .5s;
 }
 
 .contenedor {
@@ -41,6 +42,8 @@ body {
    ========================================================= */
 header{
    background: var(--color-principal);
+
+   transition: all ease .5s;
 }
 
 .header-contenido { 
@@ -53,6 +56,8 @@ header{
   box-shadow: none;
   gap: 24px;
   margin-bottom: 20px;
+
+  transition: all ease .5s;
 }
 
 img.logo-header {
@@ -76,11 +81,15 @@ h1.header-title {
   font-weight: bold;
   margin-bottom: 2px;
   color: var(--color-texto);
+
+  transition: all ease .5s;
 }
 
 p.subtitle {
   font-size: 1em;
   color: var(--color-texto-secundario);
+
+  transition: all ease .5s;
 }
 
 /* =========================================================
@@ -117,6 +126,8 @@ p.subtitle {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+
+  transition: all ease .5s;
 }
 
 h1.login-title {
@@ -124,6 +135,8 @@ h1.login-title {
   margin-bottom: 24px;
   color: var(--color-texto);
   font-size: 1.5em;
+
+  transition: all ease .5s;
 }
 
 form {
@@ -141,11 +154,15 @@ form {
   padding: 0 8px;
   border: 1px solid var(--color-fondo);
   gap: 10px;
+
+   transition: all ease .5s;
 }
 .input-group i {
   color: var(--color-secundario);
   font-size: 1.2em;
   margin-right: 8px;
+
+   transition: all ease .5s;
 }
 .input-group input {
   border: none;
@@ -155,10 +172,14 @@ form {
   font-size: 1em;
   color: var(--color-texto);
   outline: none;
+
+   transition: all ease .5s;
 }
 .input-group input::placeholder {
   color: var(--color-texto-secundario);
   opacity: 0.8;
+
+   transition: all ease .5s;
 }
 
 /* Botón principal */
@@ -187,6 +208,8 @@ button[type="submit"]:hover {
   color: var(--color-terciario);
   font-size: 0.95em;
   text-decoration: none;
+
+   transition: all ease .5s;
 }
 .forgot-link:hover {
   text-decoration: underline;
