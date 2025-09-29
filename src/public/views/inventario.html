@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,17 +9,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" defer></script>
     <script src="../js/inventario.js" defer></script>
 </head>
+
 <body>
+
     <header>
-        <img src="../img/logo.png" alt="Logo RPM Gear-line" class="logo-header" />
-        <div class="header-title-group">
-            <h1 class="header-title">RPM Gear-line</h1>
-            <p class="subtitle">Inventario de productos y repuestos</p>
+        <div class="contenedor">
+            <div class="header-contenido">
+                <img src="../img/logo.png" alt="Logo RPM Gear-line" class="logo-header" />
+                <div class="header-title-group">
+                    <h1 class="header-title">RPM Gear-line</h1>
+                    <p class="subtitle">Inventario de productos y repuestos</p>
+                </div>
+                <button class="theme-btn" id="themeToggle" title="Cambiar modo">
+                    <i class="fa fa-moon"></i>
+                </button>
+            </div>
         </div>
-        <button class="theme-btn" id="themeToggle" title="Cambiar modo">
-            <i class="fa fa-moon"></i>
-        </button>
+
     </header>
+
 
     <main class="login-main">
         <div class="login-container" style="max-width:900px;">
@@ -69,25 +78,25 @@
     </main>
 
     <script>
-    // Modo oscuro
-    document.getElementById('themeToggle').onclick = function() {
-        document.body.classList.toggle('dark-mode');
-        this.innerHTML = document.body.classList.contains('dark-mode')
-            ? '<i class="fa fa-sun"></i>'
-            : '<i class="fa fa-moon"></i>';
-    };
+        // Modo oscuro
+        document.getElementById('themeToggle').onclick = function () {
+            document.body.classList.toggle('dark-mode');
+            this.innerHTML = document.body.classList.contains('dark-mode')
+                ? '<i class="fa fa-sun"></i>'
+                : '<i class="fa fa-moon"></i>';
+        };
 
-    // Inventario en memoria
-    let inventario = [
-        {nombre: "Aceite Motor", codigo: "A001", cantidad: 10, precio: 35000},
-        {nombre: "Filtro de aire", codigo: "F002", cantidad: 5, precio: 18000}
-    ];
+        // Inventario en memoria
+        let inventario = [
+            { nombre: "Aceite Motor", codigo: "A001", cantidad: 10, precio: 35000 },
+            { nombre: "Filtro de aire", codigo: "F002", cantidad: 5, precio: 18000 }
+        ];
 
-    function renderInventario() {
-        const tbody = document.getElementById('inventarioBody');
-        tbody.innerHTML = "";
-        inventario.forEach((item, idx) => {
-            tbody.innerHTML += `
+        function renderInventario() {
+            const tbody = document.getElementById('inventarioBody');
+            tbody.innerHTML = "";
+            inventario.forEach((item, idx) => {
+                tbody.innerHTML += `
                 <tr>
                     <td>${item.nombre}</td>
                     <td>${item.codigo}</td>
@@ -99,52 +108,53 @@
                     </td>
                 </tr>
             `;
-        });
-    }
-
-    // Agregar producto
-    document.getElementById('formInventario').onsubmit = function(e) {
-        e.preventDefault();
-        const nombre = document.getElementById('nombre').value.trim();
-        const codigo = document.getElementById('codigo').value.trim();
-        const cantidad = parseInt(document.getElementById('cantidad').value);
-        const precio = parseFloat(document.getElementById('precio').value);
-        const msgSuccess = document.getElementById('msgSuccess');
-        const msgError = document.getElementById('msgError');
-        msgSuccess.style.display = "none";
-        msgError.style.display = "none";
-        if (!nombre || !codigo || isNaN(cantidad) || isNaN(precio)) {
-            msgError.textContent = "Completa todos los campos correctamente.";
-            msgError.style.display = "block";
-            return;
+            });
         }
-        inventario.push({nombre, codigo, cantidad, precio});
-        renderInventario();
-        msgSuccess.textContent = "Producto agregado correctamente.";
-        msgSuccess.style.display = "block";
-        this.reset();
-    };
 
-    // Eliminar producto
-    window.eliminarProducto = function(idx) {
-        inventario.splice(idx, 1);
-        renderInventario();
-    };
+        // Agregar producto
+        document.getElementById('formInventario').onsubmit = function (e) {
+            e.preventDefault();
+            const nombre = document.getElementById('nombre').value.trim();
+            const codigo = document.getElementById('codigo').value.trim();
+            const cantidad = parseInt(document.getElementById('cantidad').value);
+            const precio = parseFloat(document.getElementById('precio').value);
+            const msgSuccess = document.getElementById('msgSuccess');
+            const msgError = document.getElementById('msgError');
+            msgSuccess.style.display = "none";
+            msgError.style.display = "none";
+            if (!nombre || !codigo || isNaN(cantidad) || isNaN(precio)) {
+                msgError.textContent = "Completa todos los campos correctamente.";
+                msgError.style.display = "block";
+                return;
+            }
+            inventario.push({ nombre, codigo, cantidad, precio });
+            renderInventario();
+            msgSuccess.textContent = "Producto agregado correctamente.";
+            msgSuccess.style.display = "block";
+            this.reset();
+        };
 
-    // Editar producto (simple: rellena el formulario)
-    window.editarProducto = function(idx) {
-        const item = inventario[idx];
-        document.getElementById('nombre').value = item.nombre;
-        document.getElementById('codigo').value = item.codigo;
-        document.getElementById('cantidad').value = item.cantidad;
-        document.getElementById('precio').value = item.precio;
-        // Elimina el producto para que al guardar se actualice
-        inventario.splice(idx, 1);
-        renderInventario();
-    };
+        // Eliminar producto
+        window.eliminarProducto = function (idx) {
+            inventario.splice(idx, 1);
+            renderInventario();
+        };
 
-    // Inicializar tabla
-    renderInventario();
+        // Editar producto (simple: rellena el formulario)
+        window.editarProducto = function (idx) {
+            const item = inventario[idx];
+            document.getElementById('nombre').value = item.nombre;
+            document.getElementById('codigo').value = item.codigo;
+            document.getElementById('cantidad').value = item.cantidad;
+            document.getElementById('precio').value = item.precio;
+            // Elimina el producto para que al guardar se actualice
+            inventario.splice(idx, 1);
+            renderInventario();
+        };
+
+        // Inicializar tabla
+        renderInventario();
     </script>
 </body>
+
 </html>

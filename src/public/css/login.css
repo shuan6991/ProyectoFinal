@@ -30,11 +30,20 @@ body {
   min-height: 100vh;
 }
 
+.contenedor {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 95%;
+}
+
 /* =========================================================
    HEADER
    ========================================================= */
-header {
-  background: var(--color-principal);
+header{
+   background: var(--color-principal);
+}
+
+.header-contenido { 
   color: var(--color-texto);
   display: flex;
   align-items: center;

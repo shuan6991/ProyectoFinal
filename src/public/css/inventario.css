@@ -20,11 +20,22 @@ body {
   min-height: 100vh;
 }
 
+.contenedor {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 95%;
+}
+
 /* ==============================
    Header
    ============================== */
+
 header {
   background: var(--color-principal);
+}
+
+.header-contenido {
+
   color: var(--color-texto);
   display: flex;
   align-items: center;
@@ -73,6 +84,7 @@ header {
   margin-left: 16px;
   transition: color 0.2s;
 }
+
 .theme-btn:hover {
   color: var(--color-terciario);
 }
@@ -90,7 +102,7 @@ header {
 .inventario-container {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(37,99,235,0.08);
+  box-shadow: 0 4px 24px rgba(37, 99, 235, 0.08);
   padding: 32px 28px;
   width: 100%;
   max-width: 900px;
@@ -226,6 +238,7 @@ button[type="submit"]:hover {
   border-radius: 4px;
   padding: 4px 8px;
 }
+
 .table-inventario button:hover {
   color: var(--color-terciario);
   background: #f3f4f6;
@@ -238,12 +251,15 @@ button[type="submit"]:hover {
   .inventario-container {
     padding: 18px 8px;
   }
+
   header {
     flex-direction: column;
     gap: 8px;
     padding: 16px 0 8px 0;
   }
-  .table-inventario th, .table-inventario td {
+
+  .table-inventario th,
+  .table-inventario td {
     padding: 8px;
     font-size: 0.95em;
   }
