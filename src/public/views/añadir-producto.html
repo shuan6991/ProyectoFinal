@@ -7,7 +7,7 @@
     <title>Inventario - RPM Gear-line</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" defer></script>
-    <script src="../js/inventario.js" defer></script>
+
 </head>
 
 <body>
@@ -28,10 +28,22 @@
 
     </header>
 
+    <section>
+        <h1 class="titulo-producto">Añadir Producto</h1>
+    </section>
 
-    <main class="login-main">
+    <section class="contenedor">
+        <div class="imagen-formulario">
+            <div class="imagen-background">
+
+            </div>
+        </div>
+    </section>
+
+    <main class="login-main form-margin">
+
         <div class="login-container" style="max-width:900px;">
-            <h1 class="login-title">Gestión de Inventario</h1>
+            <h1 class="login-title">Formulario Producto</h1>
             <!-- Formulario de producto -->
             <form id="formInventario" style="margin-bottom:24px;">
                 <div class="input-group">
@@ -58,22 +70,6 @@
             <div class="output-success" id="msgSuccess" style="display:none;"></div>
             <div class="output-error" id="msgError" style="display:none;"></div>
             <!-- Tabla de inventario -->
-            <div style="overflow-x:auto;">
-                <table class="table-inventario" style="width:100%; margin-top:16px;">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Código</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="inventarioBody">
-                        <!-- Filas generadas por JS -->
-                    </tbody>
-                </table>
-            </div>
         </div>
     </main>
 
