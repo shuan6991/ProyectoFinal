@@ -51,39 +51,7 @@
         </div>
     </main>
 
-    <script>
-        // Modo oscuro
-        document.getElementById('themeToggle').onclick = function () {
-            document.body.classList.toggle('dark-mode');
-            this.innerHTML = document.body.classList.contains('dark-mode')
-                ? '<i class="fa fa-sun"></i>'
-                : '<i class="fa fa-moon"></i>';
-        };
-
-        // Ejemplo de validación visual
-        document.getElementById('loginForm').onsubmit = function (e) {
-            e.preventDefault();
-            const user = document.getElementById('username').value.trim();
-            const pass = document.getElementById('password').value.trim();
-            const errorMsg = document.getElementById('errorMsg');
-            const successMsg = document.getElementById('successMsg');
-            errorMsg.style.display = 'none';
-            successMsg.style.display = 'none';
-            if (!user || !pass) {
-                errorMsg.textContent = "Por favor ingresa usuario y contraseña.";
-                errorMsg.style.display = 'block';
-                return;
-            }
-            // Simulación de login correcto
-            if (user === "admin" && pass === "1234") {
-                successMsg.textContent = "¡Bienvenido!";
-                successMsg.style.display = 'block';
-            } else {
-                errorMsg.textContent = "Usuario o contraseña incorrectos.";
-                errorMsg.style.display = 'block';
-            }
-        };
-    </script>
+      <script src="../js/app.js"></script>
 </body>
 
 </html>
