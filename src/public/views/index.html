@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario - RPM Gear-line</title>
+    <title>RPM Gear-line</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" defer></script>
     <script src="../js/inventario.js" defer></script>
@@ -34,15 +34,13 @@
             <h1 class="login-title">Gestión de Inventario</h1>
             
             <!-- Formulario de producto -->
-              <button type="submit">
+              <a class="boton" href="añadir-producto.html">
                     <i class="fa fa-plus"></i> Agregar producto
-                </button>
-            <!-- Mensajes -->
-            <div class="output-success" id="msgSuccess" style="display:none;"></div>
-            <div class="output-error" id="msgError" style="display:none;"></div>
+              </a>
+          
             <!-- Tabla de inventario -->
-            <div style="overflow-x:auto;">
-                <table class="table-inventario" style="width:100%; margin-top:16px;">
+            <div>
+                <table class="table-inventario">
                     <thead>
                         <tr>
                             <th>Producto</th>
