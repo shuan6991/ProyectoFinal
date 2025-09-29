@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - RPM Gear-line</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <img src="../img/logo.png" alt="Logo RPM Gear-line" class="logo-header" />
+        <div class="header-title-group">
+            <h1 class="header-title">RPM Gear-line</h1>
+            <p class="subtitle">Sistema administrativo de inventario</p>
+        </div>
+        <button class="theme-btn" id="themeToggle" title="Cambiar modo">
+            <i class="fa fa-moon"></i>
+        </button>
+    </header>
+
+    <main class="login-main">
+        <div class="login-container">
+            <h1 class="login-title">Iniciar Sesión</h1>
+            <!-- Mensaje de error/success (puedes mostrarlo dinámicamente con JS) -->
+            <div class="output-error" style="display:none;" id="errorMsg">Usuario o contraseña incorrectos.</div>
+            <div class="output-success" style="display:none;" id="successMsg">¡Bienvenido!</div>
+            <form id="loginForm" autocomplete="off">
+                <div class="input-group">
+                    <i class="fa fa-user"></i>
+                    <input type="text" id="username" name="username" placeholder="Usuario" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" id="password" name="password" placeholder="Contraseña" required>
+                </div>
+                <button type="submit">
+                    <i class="fa fa-sign-in-alt"></i> Iniciar Sesión
+                </button>
+                <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+            </form>
+        </div>
+    </main>
+
+    <script>
+    // Modo oscuro
+    document.getElementById('themeToggle').onclick = function() {
+        document.body.classList.toggle('dark-mode');
+        this.innerHTML = document.body.classList.contains('dark-mode')
+            ? '<i class="fa fa-sun"></i>'
+            : '<i class="fa fa-moon"></i>';
+    };
+
+    // Ejemplo de validación visual
+    document.getElementById('loginForm').onsubmit = function(e) {
+        e.preventDefault();
+        const user = document.getElementById('username').value.trim();
+        const pass = document.getElementById('password').value.trim();
+        const errorMsg = document.getElementById('errorMsg');
+        const successMsg = document.getElementById('successMsg');
+        errorMsg.style.display = 'none';
+        successMsg.style.display = 'none';
+        if (!user || !pass) {
+            errorMsg.textContent = "Por favor ingresa usuario y contraseña.";
+            errorMsg.style.display = 'block';
+            return;
+        }
+        // Simulación de login correcto
+        if (user === "admin" && pass === "1234") {
+            successMsg.textContent = "¡Bienvenido!";
+            successMsg.style.display = 'block';
+        } else {
+            errorMsg.textContent = "Usuario o contraseña incorrectos.";
+            errorMsg.style.display = 'block';
+        }
+    };
+    </script>
+</body>
+</html>

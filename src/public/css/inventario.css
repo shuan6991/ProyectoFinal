@@ -1,0 +1,250 @@
+/* ==============================
+   Paleta y base visual
+   ============================== */
+:root {
+  --color-principal: #F9FAFB;
+  --color-texto: #1F2937;
+  --color-texto-secundario: #6B7280;
+  --color-fondo: #E5E7EB;
+  --color-secundario: #2563EB;
+  --color-terciario: #F97316;
+  --color-exito: #22C55E;
+  --color-advertencia: #EAB308;
+  --color-error: #EF4444;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  min-height: 100vh;
+}
+
+/* ==============================
+   Header
+   ============================== */
+header {
+  background: var(--color-principal);
+  color: var(--color-texto);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0 12px 0;
+  border-radius: 0 0 16px 16px;
+  box-shadow: none;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.logo-header {
+  height: 56px;
+  width: 56px;
+  border-radius: 12px;
+  margin-right: 16px;
+  background: #fff;
+  object-fit: contain;
+  border: 2px solid var(--color-secundario);
+}
+
+.header-title-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.header-title {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 2px;
+  color: var(--color-texto);
+}
+
+.subtitle {
+  font-size: 1em;
+  color: var(--color-texto-secundario);
+}
+
+.theme-btn {
+  background: none;
+  border: none;
+  color: var(--color-secundario);
+  font-size: 1.5em;
+  cursor: pointer;
+  margin-left: 16px;
+  transition: color 0.2s;
+}
+.theme-btn:hover {
+  color: var(--color-terciario);
+}
+
+/* ==============================
+   Main y tarjeta de inventario
+   ============================== */
+.inventario-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.inventario-container {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(37,99,235,0.08);
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.inventario-title {
+  text-align: center;
+  margin-bottom: 24px;
+  color: var(--color-texto);
+  font-size: 1.5em;
+}
+
+/* ==============================
+   Formulario
+   ============================== */
+#formInventario {
+  margin-bottom: 24px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  background: var(--color-fondo);
+  border-radius: 6px;
+  margin-bottom: 18px;
+  padding: 0 8px;
+  border: 1px solid var(--color-fondo);
+}
+
+.input-group i {
+  color: var(--color-secundario);
+  font-size: 1.2em;
+  margin-right: 8px;
+}
+
+.input-group input {
+  border: none;
+  background: transparent;
+  padding: 12px 0;
+  flex: 1;
+  font-size: 1em;
+  color: var(--color-texto);
+  outline: none;
+}
+
+.input-group input::placeholder {
+  color: var(--color-texto-secundario);
+  opacity: 0.8;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: var(--color-secundario);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+
+button[type="submit"]:hover {
+  background: var(--color-terciario);
+}
+
+/* ==============================
+   Mensajes
+   ============================== */
+.output-error {
+  color: var(--color-error);
+  background: #fff1f2;
+  border-left: 4px solid var(--color-error);
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.output-success {
+  color: var(--color-exito);
+  background: #f0fff4;
+  border-left: 4px solid var(--color-exito);
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+/* ==============================
+   Tabla de inventario
+   ============================== */
+.table-inventario {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.table-inventario th {
+  background: var(--color-secundario);
+  color: #fff;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.table-inventario td {
+  padding: 10px;
+  border-bottom: 1px solid var(--color-fondo);
+}
+
+.table-inventario tr:nth-child(even) {
+  background: var(--color-principal);
+}
+
+.table-inventario tr:hover {
+  background: #e0e7ff;
+}
+
+.table-inventario button {
+  background: none;
+  border: none;
+  color: var(--color-secundario);
+  font-size: 1.1em;
+  cursor: pointer;
+  margin-right: 6px;
+  transition: color 0.2s;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+.table-inventario button:hover {
+  color: var(--color-terciario);
+  background: #f3f4f6;
+}
+
+/* ==============================
+   Responsive
+   ============================== */
+@media (max-width: 600px) {
+  .inventario-container {
+    padding: 18px 8px;
+  }
+  header {
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 0 8px 0;
+  }
+  .table-inventario th, .table-inventario td {
+    padding: 8px;
+    font-size: 0.95em;
+  }
+}
