@@ -365,3 +365,11 @@ img.logo-header {
   margin-top: -300px;
   margin-bottom: 100px;
 }
+
+.imagen-volver {
+  position: absolute;
+  top: 20%;
+  left: 7%;
+  color: #1E293B;
+ 
+}
