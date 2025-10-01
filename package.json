@@ -1,0 +1,27 @@
+{
+  "name": "proyectofinal",
+  "version": "0.0.1",
+  "description": "Proyecto final con nodejs",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "html",
+    "css",
+    "javaScript"
+  ],
+  "author": "Georgeshuan Bolaños, Sebastian Arias, Marcela Nataly Rodriguez",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "env-var": "^7.5.0",
+    "express": "^5.1.0"
+  }
+}
