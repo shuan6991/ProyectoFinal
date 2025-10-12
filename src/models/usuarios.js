@@ -3,9 +3,10 @@ import bcrypt from "bcryptjs";
 
 
 const usuariosSchema = new mongoose.Schema({
-    nombreCompleto:{type:String, require: true},
-    usuario:{type:String, require: true},
-    password:{type:String, require:true}
+    nombreCompleto:{type:String, required: true},
+    usuario:{type:String, required: true},
+    password:{type:String, required:true},
+    rol:{type:String, required: true}
 })
 
 //Middleware: antes de guardar, encriptar contraseña

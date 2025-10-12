@@ -48,14 +48,14 @@ export const listarUsuarios = async (req, res) => {
 export const crearUsuario = async (req, res) => {
 
     //se extraen los datos que envia el usuario
-    const { nombreCompleto, usuario, password } = req.body
+    const { nombreCompleto, usuario, password, rol } = req.body
 
     // se valida que el usuario no exista en la base de datos
     const exist = await usuarios.findOne({ usuario })
     if (exist) return res.status(400).json({ message: `El usuario ya existe` })
 
     //Se valida que los campos no esten vacios
-    if (!nombreCompleto || !usuario || !password)
+    if (!nombreCompleto || !usuario || !password || !rol)
         return res.status(400).json({
             message: 'Todos los campos son obligatorios'
         })
@@ -66,7 +66,8 @@ export const crearUsuario = async (req, res) => {
         const usuarioN = new usuarios({
             nombreCompleto,
             usuario,
-            password
+            password,
+            rol
         })
 
         //se crea eel usuario en la base de datos
@@ -86,16 +87,38 @@ export const crearUsuario = async (req, res) => {
 
 }
 
+
+export const buscarIdUsuario = async (req, res) => {
+    try {
+
+        const nombreUsuario = req.params.usuario
+
+        const buscarUsuario = await usuarios.findOne({usuario: nombreUsuario})
+
+        if (!buscarUsuario)
+            return res.status(404).json({
+                message: 'usuario no encontrado'
+            })
+
+            return res.status(200).json(buscarUsuario)
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
 //funcion para eliminar usuario
 
-export const eliminarUsuario = async(req, res)=>{
-    try{
-       const deleteUser =  await usuarios.findByIdAndDelete(req.params.id)
+export const eliminarUsuario = async (req, res) => {
+    try {
+        const deleteUser = await usuarios.findByIdAndDelete(req.params.id)
         return res.status(204).json({
             message: 'usuarios eliminado correctamente',
             data: deleteUser
         })
-    }catch(error){
+    } catch (error) {
         return res.status(500).json({
             message: error.message
         })

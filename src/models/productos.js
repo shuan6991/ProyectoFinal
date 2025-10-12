@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 
 
 const productosSchema = new mongoose.Schema({
-    nombreProducto: {type:String, require:true},
-    codigio: {type:String, require: true},
-    cantidad:{type:Number, require:true},
-    precio:{type:Number, require:true}
+    nombreProducto: {type:String, required:true},
+    codigo: {type:String, required: true},
+    cantidad:{type:Number, required:true},
+    precio:{type:Number, required:true}
 })
 
 

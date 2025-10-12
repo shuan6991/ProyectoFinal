@@ -50,14 +50,29 @@ header {
   color: var(--color-texto);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 24px 0 12px 0;
   border-radius: 0 0 16px 16px;
   box-shadow: none;
-  gap: 24px;
+  
   margin-bottom: 20px;
 
   transition: all ease .5s;
+}
+
+.header-logo-titulo{
+  display: flex;
+  gap: 24px;
+}
+
+.header-usuario-darkmode{
+   display: flex;
+   gap: 24px;
+}
+
+.header-usuario-darkmode p{
+  font-weight: 600;
+  cursor: pointer;
 }
 
 img.logo-header {
@@ -169,6 +184,30 @@ form {
 
 .input-group input {
   border: none;
+  background: transparent;
+  padding: 12px 0;
+  flex: 1;
+  font-size: 1em;
+  color: var(--color-texto);
+  outline: none;
+
+  transition: all ease .5s;
+}
+
+.input-group select{
+  border: none;
+  background: transparent;
+  padding: 12px 0;
+  flex: 1;
+  font-size: 1em;
+  color: var(--color-texto);
+  outline: none;
+
+  transition: all ease .5s;
+}
+
+.option{
+   border: none;
   background: transparent;
   padding: 12px 0;
   flex: 1;
@@ -344,6 +383,19 @@ img.logo-header {
 .imagen-formulario {
 
   background-image: url(../img/Mantenimiento-Y-Reparacion-De-Motos-Modulo-II.webp);
+  height: 500px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+  margin-top: 30px;
+  z-index: -1;
+}
+
+
+.imagen-formulario-usuario {
+
+  background-image: url(../img/añadirUsuario.jpg);
   height: 500px;
   background-repeat: no-repeat;
   background-position: center center;

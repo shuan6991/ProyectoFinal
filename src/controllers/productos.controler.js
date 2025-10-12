@@ -67,6 +67,27 @@ export const crearProducto = async (req, res) => {
 
 }
 
+
+export const buscarProductoId = async(req, res)=>{
+    try{
+        const codigoProducto = req.params.codigo
+
+        const buscarProducto = await productos.findOne({codigo: codigoProducto})
+
+        if(!buscarProducto)
+            return res.status(404).json({
+                message: 'El producto no se encontro en la base de datos'
+
+        })        
+        return res.status(200).json(buscarProducto)
+        
+    }catch(error){
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
 //se crea funcion para actualiza producto
 export const actualizaProducto = async(req, res)=>{
 

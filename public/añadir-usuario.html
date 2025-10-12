@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <header>
+ <header>
         <div class="contenedor">
             <div class="header-contenido">
                 <div class="header-logo-titulo">
@@ -35,7 +35,7 @@
     </header>
 
     <section>
-        <h1 class="titulo-producto">Añadir Producto</h1>
+        <h1 class="titulo-producto">Añadir Usuario</h1>
         <a class="imagen-volver" href="productos.html">
             < Volver</a>
     </section>
@@ -43,7 +43,7 @@
 
 
     <section class="contenedor">
-        <div class="imagen-formulario">
+        <div class="imagen-formulario-usuario">
             <div class="imagen-background">
 
             </div>
@@ -53,27 +53,34 @@
     <main class="login-main form-margin">
 
         <div class="login-container" style="max-width:900px;">
-            <h1 class="login-title">Formulario Producto</h1>
+            <h1 class="login-title">Formulario Usuario</h1>
             <!-- Formulario de producto -->
-            <form id="formInventario" style="margin-bottom:24px;">
+            <form class="formInventario formUsuario" style="margin-bottom:24px;">
                 <div class="input-group">
                     <i class="fa fa-box"></i>
-                    <input type="text" id="nombre" name="nombre" placeholder="Nombre del producto" required>
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre completo del Usuario" required>
                 </div>
                 <div class="input-group">
                     <i class="fa fa-barcode"></i>
-                    <input type="text" id="codigo" name="codigo" placeholder="Código Producto" required>
+                    <input type="text" id="username" name="username" placeholder="UserName" required>
                 </div>
                 <div class="input-group">
                     <i class="fa fa-sort-numeric-up"></i>
-                    <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad" min="1" required>
+                    <input type="password" id="cantpasswordidad" name="password" placeholder="Contraseña" min="1"
+                        required>
                 </div>
+
                 <div class="input-group">
-                    <i class="fa fa-dollar-sign"></i>
-                    <input type="number" id="precio" name="precio" placeholder="Precio" min="0" step="0.01" required>
+                    <select name="rol" id="rol">
+                        <option class="option" selected disabled value="">Selecione el rol</option>
+                        <option class="option" value="admin">Administrador</option>
+                        <option class="option" value="user">Usuario</option>
+                    </select>
                 </div>
+
+
                 <button type="submit">
-                    <i class="fa fa-plus"></i> Agregar producto
+                    <i class="fa fa-plus"></i> Agregar Usuario
                 </button>
             </form>
             <!-- Mensajes -->
