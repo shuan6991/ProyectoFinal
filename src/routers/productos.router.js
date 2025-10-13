@@ -8,6 +8,6 @@ routerProduct.get('/', listarProductos)
 routerProduct.get('/buscarProductoId/:codigo', buscarProductoId)
 routerProduct.post('/', crearProducto)
 routerProduct.delete('/:codigo', eliminarProducto)
-routerProduct.patch('/:codigo', actualizaProducto)
+routerProduct.put('/:codigo', actualizaProducto)
 
 export default routerProduct

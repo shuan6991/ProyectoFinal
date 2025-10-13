@@ -1,13 +1,34 @@
+let nombreProduct
+let codig
+let canti
+let price
+
+//creo la variable para el formualrio de productos
+let formProducto
+let formInventarioActua
+
 document.addEventListener('DOMContentLoaded', () => {
+    //variables formulario para ver info producto en los campos
+    nombreProduct = document.querySelector('#nombreProductoActu')
+    codig = document.querySelector('#codigoActu')
+    canti = document.querySelector('#cantidadActu')
+    price = document.querySelector('#precioActu')
+
+    formProducto = document.querySelector('.formInventario')
+
+    formInventarioActua = document.querySelector('.formInventarioActua')
+
+
     datosProducto()
     obtenerProductos()
+    verInfoProducFomr()
+    obtenerDatosProduc()
+
 })
 
 //creo la uel para los datos 
 const urlProduct = "http://localhost:8000/products"
 
-//creo la variable para el formualrio de productos
-const formProducto = document.querySelector('.formInventario')
 
 //creo funcion para validar los datos
 async function validarDatosProducto(datos) {
@@ -127,7 +148,7 @@ function insertarProduct(productos) {
 
 
         //asigno direaccion a las img
-        linkActualizar.href = '#'
+        linkActualizar.href = 'actualizar-producto.html'
         linkEliminar.href = '#'
 
         //le coloco la ruta a las img
@@ -164,6 +185,8 @@ function insertarProduct(productos) {
         //Llamo la funcion para eliminar el producto seleccionado y envio el codigo del producto
         eliminarImg.onclick = () => eliminarProduto(datos.codigo)
 
+        //guardo los datos en localStorage para tomarlos en la pagina de actualizar producto
+        actualizarImg.onclick = () => localStorage.setItem('productoEditar', JSON.stringify(datos))
     });
 }
 
@@ -189,7 +212,7 @@ async function eliminarProduto(codigo) {
 
         //llamo la funcion eliminar y elbio el codigo del producto
         eliminarFilaDeTabla(codigo)
-        
+
         //envio el alert con mensaje de que se elimino el producto
         alert(`Se elimino producto con el codigo ${codigo} correctamente`)
 
@@ -207,16 +230,89 @@ function eliminarFilaDeTabla(codigo) {
     filaAEliminar.remove();
 }
 
+//creo funcion para ver los datos en los campos de actualiza producto
+function verInfoProducFomr() {
+
+    //tomo los datos del localStorage
+    const datosEditar = localStorage.getItem('productoEditar')
+
+    //verifico que tenga informacion
+    if (datosEditar) {
+
+        //parseo los datos 
+        const datos = JSON.parse(datosEditar)
+
+        //verifico que los campos existan en la pagina y seteo la informacion en el campo
+        if (nombreProduct) nombreProduct.value = datos.nombreProducto
+     
+        //verifico que los campos existan en la pagina y seteo la informacion en el campo
+        if (codig) codig.value = datos.codigo
+
+         //verifico que los campos existan en la pagina y seteo la informacion en el campo
+        if (canti) canti.value = datos.cantidad
+
+         //verifico que los campos existan en la pagina y seteo la informacion en el campo
+        if (price) price.value = datos.precio
+
+    }
+
+}
+
 //creo funcion para actualizar producto
-async function actualizarProducto() {
-    try{
+async function actualizarProducto(datos) {
+    //control de errres
+    try {
 
-    }catch(error){
+        //creo mi fetch api 
+        const actualizar = await fetch(`${urlProduct}/${datos.codigo}`, {
+            method: "PUT    ",
+            headers: {
+                "Content-Type": "application/json"
+            },
 
+            body: JSON.stringify(datos)
+        })
+
+        //valido la repuesta 
+        if (!actualizar.ok) {
+            const errorActualizar = await actualizar.json()
+            throw new Error(errorActualizar.message || `Hubo un error en la peticion HTTP ${actualizar.status}`)
+        }
+
+        //Si la respuesta es valida envio los datos
+        await actualizar.json()
+        //alerta de productos actualizados
+        alert('el producto fue actualizado correctamente')
+
+        //borro el item de localstorage
+        localStorage.removeItem('productoEditar')
+
+        //redigirmos a la pagina de productos
+        location.href = 'http://localhost:8000/productos.html'
+
+    } catch (error) {
+        //Mensaje de error si hay un error en el server
+        console.log(error.message)
     }
 }
 
 //obtengo los datos del producto a actaulizar
-function obtenerDatosProduc(){
+function obtenerDatosProduc() {
+    //valido que el formulario exista
+    if (!formInventarioActua) return
 
+    //evento del formulario
+    formInventarioActua.addEventListener('submit', e => {
+        e.preventDefault()
+
+        //tomo los datos del formulario
+        const datosFromActua = new FormData(formInventarioActua)
+
+        //parseo los datos a bject
+        const datos = Object.fromEntries(datosFromActua.entries())
+
+        //envio los datos a la funcion actualizar
+        actualizarProducto(datos)
+
+    })
 }

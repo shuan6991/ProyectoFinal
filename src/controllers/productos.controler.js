@@ -67,7 +67,7 @@ export const crearProducto = async (req, res) => {
 
 }
 
-
+//Actualizar producto buscando el codigo   
 export const buscarProductoId = async(req, res)=>{
     try{
         const codigoProducto = req.params.codigo
@@ -92,9 +92,11 @@ export const buscarProductoId = async(req, res)=>{
 export const actualizaProducto = async(req, res)=>{
 
     try{
+        const {codigo} = req.body
 
-        //se actualiza el producto
-        const updateProducto = await productos.findByIdAndUpdate(req.params.id, req.body, {new:true})
+        const datosActuali = req.body
+               //se actualiza el producto
+        const updateProducto = await productos.findOneAndUpdate( {codigo: codigo}, datosActuali, {new:true})
 
         //mensaje del que el produto fue actualizado
         return res.status(200).json({
