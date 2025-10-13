@@ -147,7 +147,7 @@ export const login = async (req, res) => {
         const token = generarToken(usuarioLogeo)
         //se envia mensaje de que todo salio bien
         return res.status(200).json({
-            message: 'Inicio de sesion exitoso', token
+            message: 'Inicio de sesion exitoso', token, usuarioLogeo
         })
 
     } catch (error) {

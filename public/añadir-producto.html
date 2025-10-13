@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <header>
+ <header>
         <div class="contenedor">
             <div class="header-contenido">
                 <div class="header-logo-titulo">
@@ -23,7 +23,11 @@
                 </div>
 
                 <div class="header-usuario-darkmode">
-                    <p>User</p>
+                    <ul class="menu-usuario">
+                        <li class="nombreUsuario">
+                          
+                        </li>
+                    </ul>
                     <button class="theme-btn" id="themeToggle" title="Cambiar modo">
                         <i class="fa fa-moon"></i>
                     </button>
@@ -33,7 +37,6 @@
         </div>
 
     </header>
-
     <section>
         <h1 class="titulo-producto">Añadir Producto</h1>
         <a class="imagen-volver" href="productos.html">
@@ -55,10 +58,10 @@
         <div class="login-container" style="max-width:900px;">
             <h1 class="login-title">Formulario Producto</h1>
             <!-- Formulario de producto -->
-            <form id="formInventario" style="margin-bottom:24px;">
+            <form class="formInventario" style="margin-bottom:24px;">
                 <div class="input-group">
                     <i class="fa fa-box"></i>
-                    <input type="text" id="nombre" name="nombre" placeholder="Nombre del producto" required>
+                    <input type="text" id="nombreProducto" name="nombreProducto" placeholder="Nombre del producto" required>
                 </div>
                 <div class="input-group">
                     <i class="fa fa-barcode"></i>
@@ -66,7 +69,7 @@
                 </div>
                 <div class="input-group">
                     <i class="fa fa-sort-numeric-up"></i>
-                    <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad" min="1" required>
+                    <input type="number" id="cantidad" name="cantidad" placeholder="cantidad" min="1" required>
                 </div>
                 <div class="input-group">
                     <i class="fa fa-dollar-sign"></i>
@@ -83,7 +86,9 @@
         </div>
     </main>
 
-    <script src="../js/app.js"></script>
+    
+    <script src="js/validarLogeo.js"></script>
+     <script src="js/productos.js"></script>
 </body>
 
 </html>

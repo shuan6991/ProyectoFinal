@@ -37,6 +37,19 @@ body {
   width: 95%;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+}
+
+
+
+a {
+  text-decoration: none;
+}
+
 /* =========================================================
    HEADER
    ========================================================= */
@@ -54,23 +67,24 @@ header {
   padding: 24px 0 12px 0;
   border-radius: 0 0 16px 16px;
   box-shadow: none;
-  
+
   margin-bottom: 20px;
 
   transition: all ease .5s;
 }
 
-.header-logo-titulo{
+.header-logo-titulo {
   display: flex;
   gap: 24px;
 }
 
-.header-usuario-darkmode{
-   display: flex;
-   gap: 24px;
+.header-usuario-darkmode {
+  display: flex;
+  gap: 24px;
+  height: 100%;
 }
 
-.header-usuario-darkmode p{
+.header-usuario-darkmode p {
   font-weight: 600;
   cursor: pointer;
 }
@@ -106,6 +120,42 @@ p.subtitle {
 
   transition: all ease .5s;
 }
+
+
+.nombreUsuario {
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+}
+
+.submenuUsuairo {
+  position: absolute;
+  width: 200px;
+  margin-top: 30px;
+  height: 90px;
+  display: none;
+  background-color: #1F2937;
+  left: -30%;
+}
+
+.submenuUsuairo li {
+  padding: 10px;
+  border-bottom: solid 1px #E5E7EB;
+}
+
+.submenuUsuairo li:last-of-type {
+  border-bottom: none;
+}
+
+.submenuUsuairo li a {
+  color: #E5E7EB;
+}
+
+.submenuUsuairo-activo {
+  display: block;
+}
+
+
 
 /* =========================================================
    BOTÓN CAMBIO DE TEMA
@@ -194,7 +244,7 @@ form {
   transition: all ease .5s;
 }
 
-.input-group select{
+.input-group select {
   border: none;
   background: transparent;
   padding: 12px 0;
@@ -206,8 +256,8 @@ form {
   transition: all ease .5s;
 }
 
-.option{
-   border: none;
+.option {
+  border: none;
   background: transparent;
   padding: 12px 0;
   flex: 1;
@@ -226,7 +276,8 @@ form {
 }
 
 /* Botón principal */
-button[type="submit"], .boton {
+button[type="submit"],
+.boton {
   width: 100%;
   padding: 12px;
   background: var(--color-secundario);
@@ -245,7 +296,8 @@ button[type="submit"], .boton {
   margin: 40px 0;
 }
 
-.boton:hover, button[type="submit"]:hover {
+.boton:hover,
+button[type="submit"]:hover {
   background: var(--color-terciario);
 }
 
@@ -367,15 +419,20 @@ img.logo-header {
   text-align: center;
 }
 
-.table-inventario{
+.table-inventario {
   margin-top: 50px;
-  width:100%; 
- 
+  width: 100%;
+  border-collapse: collapse;
 }
 
+
+.table-inventario thead tr th{
+  padding: 15px;
+  font-size: 18px;
+}
 /* Añadir producto */
 
-.titulo-producto{
+.titulo-producto {
   text-align: center;
   margin-top: 50px;
 }
@@ -423,5 +480,36 @@ img.logo-header {
   top: 20%;
   left: 7%;
   color: #1E293B;
- 
+
 }
+
+/* tabla */
+
+.inventarioBody tr {
+  text-align: center;
+  font-size: 18px;
+
+}
+
+.inventarioBody tr td {
+  padding: 15px;
+}
+
+.inventarioBody tr:nth-child(odd) {
+  background-color: #1F2937;
+  color: #E5E7EB;
+
+}
+
+.acciones-contenido{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+}
+
+.acciones-img {
+  width: 35px;
+}
+

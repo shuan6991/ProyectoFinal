@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     login()
-
+   
 })
 
 // variables
@@ -25,7 +25,7 @@ async function validarDatos(data) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body:JSON.stringify(data)
+            body: JSON.stringify(data)
         })
 
         //valido si la respuesta fue exitosa 
@@ -38,24 +38,35 @@ async function validarDatos(data) {
         const resultado = await respuesta.json()
 
         //Asigno el token a una variable
-        const token = resultado.token
+        const { token, usuarioLogeo } = resultado
+
+
 
         //Valido el token
-        if(token){
+        if (token && usuarioLogeo) {
+
+            //Borro la contraseña para que no se guarde en mi localStorage
+            if (usuarioLogeo.password) {
+                delete usuarioLogeo.password
+            }
+
             //guardo el token en localstorage
             localStorage.setItem('authToken', token)
+            //guardo el usuario en el localstorage
+            localStorage.setItem('userData', JSON.stringify(usuarioLogeo))
+
+            //Envio mensaje de inicio de sesion
+            alert('inicio de sesion exitos Bienvenido ' + usuarioLogeo.nombreCompleto)
+            location.href = "http://localhost:8000/productos.html"
+
+        } else {
+            throw new Error('Respuesta del servdor invalida')
         }
-
-        //Envio mensaje de inicio de sesion
-        alert('inicio de sesion exitos Bienvenido')
-        location.href= "http://localhost:8000/productos.html"
-
     } catch (error) {
         //error de conexion
         console.log('Error en el inicio de sesion')
     }
 }
-
 
 //funcion para optene datos del formulario
 function login() {
@@ -74,3 +85,49 @@ function login() {
         validarDatos(data)
     })
 }
+
+function validarLogeo() {
+    //obtengo los datos del localstorage
+    const userDataJSON = localStorage.getItem('userData')
+
+
+    //valido que  exista la funcion userData en el local storage
+    if (!userDataJSON) {
+        console.log('no hay datos de usuarioi')
+        //si no  existe redirijo a la pagina de logeo
+        location.href = 'http://localhost:8000/index.html'
+
+        return;
+    }
+
+    //si existe realizo control de errores
+    try {
+        //parseo los datos 
+        const userData = JSON.parse(userDataJSON)
+        //valido que hayan datos y que los datos esten correctos
+        if (!userData || !userData.usuario) {
+            console.log("Los datos del usuario estan corructos o incompletos")
+            //si no hay datos o no son correctos elimino el userData del localStorage
+            localStorage.removeItem("userData")
+
+            //se redirige a la pagina principal
+            location.href = 'http://localhost:8000/index.html'
+
+            return;
+        }
+
+        //mensaje de que el usuario si esta autenticado
+        console.log('usuario autenticado')
+
+    } catch (error) {
+        //error de parseo de datos
+        console.log('Error al parsear los datos del usuario ' + error.message)
+        //se eliminda el userData del localStorage
+        localStorage.removeItem("userData");
+        //se redirige a la pagina principal
+        location.href = 'http://localhost:8000/index.html';
+
+    }
+}
+
+

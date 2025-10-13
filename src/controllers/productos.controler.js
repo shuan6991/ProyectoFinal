@@ -114,15 +114,18 @@ export const actualizaProducto = async(req, res)=>{
 //se crea funcion para eliminar el producto
 export const eliminarProducto = async(req, res)=>{
     try{
+        const{codigo}= req.params
 
         //se elimina el producto
-        const deleteProducto = await productos.findByIdAndDelete(req.params.id)
+        const deleteProducto = await productos.findOneAndDelete({codigo})
 
+         if (!deleteProducto) {
+             return res.status(404).json({
+                 message: 'El producto no fue encontrado para eliminar.',
+             })
+        }
         //se retorna mensaje de producto eliminado
-        return res.status(204).json({
-            message: 'El producto fue eliminado',
-            data: deleteProducto
-        })
+        return res.status(204).send()
     }catch(error){
 
         //si hay un error en el servidor se coloca mensaje de error
