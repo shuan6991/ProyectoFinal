@@ -6,6 +6,7 @@ let price
 //creo la variable para el formualrio de productos
 let formProducto
 let formInventarioActua
+let fromBuscar;
 
 document.addEventListener('DOMContentLoaded', () => {
     //variables formulario para ver info producto en los campos
@@ -17,17 +18,20 @@ document.addEventListener('DOMContentLoaded', () => {
     formProducto = document.querySelector('.formInventario')
 
     formInventarioActua = document.querySelector('.formInventarioActua')
+    fromBuscar = document.querySelector('.buscar')
 
 
     datosProducto()
     obtenerProductos()
     verInfoProducFomr()
     obtenerDatosProduc()
+    validarDatosFormBuscar()
 
 })
 
 //creo la uel para los datos 
-const urlProduct = "http://localhost:8000/products"
+const urlProduct = "http://localhost:8000/products";
+const urlBuscar = "http://localhost:8000/products/buscarProductoCodigo"
 
 
 //creo funcion para validar los datos
@@ -120,7 +124,7 @@ function insertarProduct(productos) {
 
         //almaceno el codigo del tr
         tr.dataset.codigo = datos.codigo;
-
+        tr.classList.add('producto-linea')
         //creo los td 
         const tdCodigo = document.createElement('TD')
         const tdNombre = document.createElement('TD')
@@ -244,14 +248,14 @@ function verInfoProducFomr() {
 
         //verifico que los campos existan en la pagina y seteo la informacion en el campo
         if (nombreProduct) nombreProduct.value = datos.nombreProducto
-     
+
         //verifico que los campos existan en la pagina y seteo la informacion en el campo
         if (codig) codig.value = datos.codigo
 
-         //verifico que los campos existan en la pagina y seteo la informacion en el campo
+        //verifico que los campos existan en la pagina y seteo la informacion en el campo
         if (canti) canti.value = datos.cantidad
 
-         //verifico que los campos existan en la pagina y seteo la informacion en el campo
+        //verifico que los campos existan en la pagina y seteo la informacion en el campo
         if (price) price.value = datos.precio
 
     }
@@ -315,4 +319,130 @@ function obtenerDatosProduc() {
         actualizarProducto(datos)
 
     })
+}
+
+async function buscarProductoCodigo(datos) {
+    try {
+
+        const { codigo } = datos
+
+        const resultado = await fetch(`${urlBuscar}/${codigo}`)
+
+        if (!resultado.ok) {
+            const errorDatos = await resultado.json()
+            throw new Error(errorDatos.message || `Hubo un error en la peticion http ${resultado.status}`)
+        }
+
+        visualizarUnProducto(await resultado.json())
+
+
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+// validar datos del formulariobuscar producto por codigo
+
+function validarDatosFormBuscar() {
+
+    if (!fromBuscar) return
+
+    fromBuscar.addEventListener('submit', e => {
+
+        e.preventDefault()
+
+        const datosForm = new FormData(fromBuscar)
+
+        const datos = Object.fromEntries(datosForm.entries())
+
+        buscarProductoCodigo(datos)
+    })
+
+}
+
+function visualizarUnProducto(resultado) {
+
+    const productoLinea = document.querySelector('.inventarioBody')
+
+      productoLinea.innerHTML = '';
+
+    if (!productoLinea || !resultado) return
+
+  
+
+    //creo el tr
+    const tr = document.createElement('TR')
+
+    //almaceno el codigo del tr
+    tr.dataset.codigo = resultado.codigo;
+    tr.classList.add('producto-linea')
+    //creo los td 
+    const tdCodigo = document.createElement('TD')
+    const tdNombre = document.createElement('TD')
+    const tdCantidad = document.createElement('TD')
+    const tdPrecio = document.createElement('TD')
+    const tdAcciones = document.createElement('tdAcciones')
+
+    //creo div para las img
+    const divAcciones = document.createElement('DIV')
+
+    //creo las img
+    const actualizarImg = document.createElement('IMG')
+    const eliminarImg = document.createElement('IMG')
+
+    //asigno clases a las img
+    actualizarImg.classList.add('acciones-img')
+    eliminarImg.classList.add('acciones-img')
+
+    //asigno class al div de las img
+    divAcciones.classList.add('acciones-contenido')
+
+    //creo link para las img
+    const linkActualizar = document.createElement('A')
+    const linkEliminar = document.createElement('A')
+
+
+    //asigno direaccion a las img
+    linkActualizar.href = 'actualizar-producto.html'
+    linkEliminar.href = '#'
+
+    //le coloco la ruta a las img
+    actualizarImg.src = "../img/editar.png"
+    eliminarImg.src = "../img/eliminar.png"
+
+    //asigno el te al tbody
+    productoLinea.appendChild(tr)
+
+    //le asigno los dato del producto a los td
+    tdCodigo.innerText = resultado.codigo
+    tdNombre.innerText = resultado.nombreProducto
+    tdCantidad.innerText = resultado.cantidad
+    tdPrecio.innerText = resultado.precio
+
+    //asigno los td al tr
+    tr.appendChild(tdCodigo)
+    tr.appendChild(tdNombre)
+    tr.appendChild(tdCantidad)
+    tr.appendChild(tdPrecio)
+    tr.appendChild(tdAcciones)
+
+    //asigno el div al td
+    tdAcciones.appendChild(divAcciones)
+
+    //asigno los links al div
+    divAcciones.appendChild(linkActualizar)
+    divAcciones.appendChild(linkEliminar)
+
+    //Asigno las img al los links
+    linkActualizar.appendChild(actualizarImg)
+    linkEliminar.appendChild(eliminarImg)
+
+    //Llamo la funcion para eliminar el producto seleccionado y envio el codigo del producto
+    eliminarImg.onclick = () => eliminarProduto(resultado.codigo)
+
+    //guardo los datos en localStorage para tomarlos en la pagina de actualizar producto
+    actualizarImg.onclick = () => localStorage.setItem('productoEditar', JSON.stringify(resultado))
+
+
+
 }

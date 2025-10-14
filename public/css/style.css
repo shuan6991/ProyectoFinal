@@ -205,9 +205,42 @@ h1.login-title {
   transition: all ease .5s;
 }
 
+.contenedor-agregar-buscar {
+  display: grid;
+  grid-template-columns: 25% 70%;
+  column-gap: 20px;
+
+}
+
+.contenedor-indexar{
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  height: auto;
+}
+
+.buscar-codigo {
+  border: none;
+  background: var(--color-fondo);
+  padding: 12px 12px;
+  flex: 1;
+  font-size: 1em;
+  color: var(--color-texto);
+  border-radius: 5px;
+  width: 100%;
+  transition: all ease .5s;
+}
+
 form {
   display: flex;
   flex-direction: column;
+}
+
+.buscar {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+
 }
 
 /* Inputs */
@@ -299,6 +332,16 @@ button[type="submit"],
 .boton:hover,
 button[type="submit"]:hover {
   background: var(--color-terciario);
+}
+
+.boton-indexar{
+  margin: 0;
+}
+
+.boton-buscar {
+  margin: 10px 0;
+  width: 200px;
+  padding: 8px;
 }
 
 /* Enlaces */
@@ -426,10 +469,11 @@ img.logo-header {
 }
 
 
-.table-inventario thead tr th{
+.table-inventario thead tr th {
   padding: 15px;
   font-size: 18px;
 }
+
 /* Añadir producto */
 
 .titulo-producto {
@@ -501,7 +545,7 @@ img.logo-header {
 
 }
 
-.acciones-contenido{
+.acciones-contenido {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -512,4 +556,3 @@ img.logo-header {
 .acciones-img {
   width: 35px;
 }
-

@@ -67,8 +67,8 @@ export const crearProducto = async (req, res) => {
 
 }
 
-//Actualizar producto buscando el codigo   
-export const buscarProductoId = async(req, res)=>{
+   
+export const buscarProductoCodigo = async(req, res)=>{
     try{
         const codigoProducto = req.params.codigo
 

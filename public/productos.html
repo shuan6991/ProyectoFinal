@@ -44,10 +44,19 @@
         <div class="login-container" style="max-width:900px;">
             <h1 class="login-title">Gestión de Inventario</h1>
 
-            <!-- Formulario de producto -->
-            <a class="boton" href="añadir-producto.html">
-                <i class="fa fa-plus"></i> Agregar producto
-            </a>
+            <div class="contenedor-agregar-buscar">
+                <div class="contenedor-indexar">
+                    <a class="boton boton-indexar" href="añadir-producto.html">
+                        <i class="fa fa-plus"></i> Agregar producto
+                    </a>
+                </div>
+
+                <form class="buscar">
+                    <input class="buscar-codigo" type="text" id="codigo" name="codigo" placeholder="Buscar por codigo">
+                    <input class="boton boton-buscar" type="submit" value="Buscar">
+                </form>
+            </div>
+
 
             <!-- Tabla de inventario -->
             <div>
