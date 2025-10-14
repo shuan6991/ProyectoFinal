@@ -265,7 +265,7 @@ async function actualizarProducto(datos) {
 
         //creo mi fetch api 
         const actualizar = await fetch(`${urlProduct}/${datos.codigo}`, {
-            method: "PUT    ",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },

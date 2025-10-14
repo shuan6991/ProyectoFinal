@@ -132,7 +132,7 @@ p.subtitle {
   position: absolute;
   width: 200px;
   margin-top: 30px;
-  height: 90px;
+  height: auto;
   display: none;
   background-color: #1F2937;
   left: -30%;

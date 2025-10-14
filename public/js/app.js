@@ -1,11 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     login()
-   
+    validarDatosUsu()
 })
 
 // variables
 const fomrLogin = document.querySelector('#loginForm')
+
+const formUsuario = document.querySelector('.formUsuario')
+
 const urlLogin = 'http://localhost:8000/users/login'
+const urlUsuario = 'http://localhost:8000/users'
 
 // Modo oscuro
 document.getElementById('themeToggle').onclick = function () {
@@ -30,8 +34,7 @@ async function validarDatos(data) {
 
         //valido si la respuesta fue exitosa 
         if (!respuesta.ok) {
-            const errorData = await respuesta.json()
-            throw new Error(errorData.message || `Error http ${respuesta.status}`)
+            alert('Datos incorrectos')
         }
 
         //repuesta exitosa
@@ -70,7 +73,7 @@ async function validarDatos(data) {
 
 //funcion para optene datos del formulario
 function login() {
-
+    if(!fomrLogin) return
     //evento del formulario
     fomrLogin.addEventListener('submit', e => {
         e.preventDefault()
@@ -131,3 +134,39 @@ function validarLogeo() {
 }
 
 
+async function crarUsuario(datos) {
+    try {
+        const resultado = await fetch(urlUsuario, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(datos)
+        })
+
+        if (!resultado.ok) {
+            const errrorResultado = await resultado.json()
+            throw new Error(errrorResultado.message || `Hubo un error en la peticion HTTP ${resultado.status}`)
+        }
+
+        await resultado.json()
+        alert('El usuario se creo corectamente')
+        location.href = 'http://localhost:8000/productos.html'
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+function validarDatosUsu() {
+    if (!formUsuario) return
+
+    formUsuario.addEventListener('submit', e => {
+        e.preventDefault()
+
+        const usuarioDatos = new FormData(formUsuario)
+
+        const datos = Object.fromEntries(usuarioDatos.entries())
+
+        crarUsuario(datos)
+    })
+}
