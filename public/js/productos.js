@@ -168,9 +168,9 @@ function insertarProduct(productos) {
         tdCantidad.innerText = datos.cantidad
         tdPrecio.innerText = datos.precio
 
-        //asigno los td al tr
-        tr.appendChild(tdCodigo)
+        //asigno los td al tr      
         tr.appendChild(tdNombre)
+        tr.appendChild(tdCodigo)
         tr.appendChild(tdCantidad)
         tr.appendChild(tdPrecio)
         tr.appendChild(tdAcciones)
@@ -328,13 +328,12 @@ async function buscarProductoCodigo(datos) {
 
         const resultado = await fetch(`${urlBuscar}/${codigo}`)
 
-        if (!resultado.ok) {
-            const errorDatos = await resultado.json()
-            throw new Error(errorDatos.message || `Hubo un error en la peticion http ${resultado.status}`)
+        if (!resultado.ok) {    
+            alert('El codigo del producto es incorrecto')
+            return
         }
 
         visualizarUnProducto(await resultado.json())
-
 
     } catch (error) {
         console.log(error.message)
@@ -364,11 +363,11 @@ function visualizarUnProducto(resultado) {
 
     const productoLinea = document.querySelector('.inventarioBody')
 
-      productoLinea.innerHTML = '';
+    productoLinea.innerHTML = '';
 
     if (!productoLinea || !resultado) return
 
-  
+
 
     //creo el tr
     const tr = document.createElement('TR')
@@ -420,8 +419,8 @@ function visualizarUnProducto(resultado) {
     tdPrecio.innerText = resultado.precio
 
     //asigno los td al tr
-    tr.appendChild(tdCodigo)
     tr.appendChild(tdNombre)
+    tr.appendChild(tdCodigo)
     tr.appendChild(tdCantidad)
     tr.appendChild(tdPrecio)
     tr.appendChild(tdAcciones)
