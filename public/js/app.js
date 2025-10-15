@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     login()
     validarDatosUsu()
+    setupPersistentDarkMode()
 })
 
 // variables
@@ -12,12 +13,35 @@ const urlLogin = 'http://localhost:8000/users/login'
 const urlUsuario = 'http://localhost:8000/users'
 
 // Modo oscuro
-document.getElementById('themeToggle').onclick = function () {
-    document.body.classList.toggle('dark-mode');
-    this.innerHTML = document.body.classList.contains('dark-mode')
-        ? '<i class="fa fa-sun"></i>'
-        : '<i class="fa fa-moon"></i>';
-};
+function setupPersistentDarkMode() {
+    const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+    const darkModeKey = 'darkModeEnabled';
+
+        const applyTheme = (isDarkMode) => {
+        if (isDarkMode) {
+            body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fa fa-sun"></i>';
+        } else {
+            body.classList.remove('dark-mode');
+            themeToggle.innerHTML = '<i class="fa fa-moon"></i>';
+        }
+    };
+
+    const storedPreference = localStorage.getItem(darkModeKey);
+    if (storedPreference !== null) {
+        applyTheme(storedPreference === 'true');
+    }
+
+    themeToggle.onclick = function () {
+        body.classList.toggle('dark-mode');
+        const isDarkMode = body.classList.contains('dark-mode');
+        
+        applyTheme(isDarkMode);
+        
+        localStorage.setItem(darkModeKey, isDarkMode);
+    };
+}
 
 
 async function validarDatos(data) {
