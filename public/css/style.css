@@ -573,46 +573,156 @@ img.logo-header {
   justify-content: center;
   animation: fede-in ease-in .5s;
 
-  &.fade-out{
+  &.fade-out {
     animation: fade-out ease-in 0.5s;
   }
 
 }
 
 .btn-cerrar {
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    background-color: #E5E7EB;
-    border: none;
-    color: #1E293B;
-    display: grid;
-    place-items: center;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 2rem;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: #E5E7EB;
+  border: none;
+  color: #1E293B;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 2rem;
 }
 
 
-.overFlow{
+.overFlow {
   overflow: hidden;
 }
 
-@keyframes fede-in{
-   0% {
-        opacity: 0;
-    }
-    100%  {
-        opacity: 1;
-    }
+@keyframes fede-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 
-@keyframes fade-out{
-    0% {
-        opacity: 1;
-    }
-    100%  {
-        opacity: 0;
-    }
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.ver-product {
+  margin-top: 2rem;
+}
+
+.ver-product-contenido {
+  display: grid;
+  grid-template-columns: 38% 15% 15% 15% 15%;
+  column-gap: 5px;
+  text-align: center;
+
+}
+
+.ver-product-contenido p {
+  background-color: #E5E7EB;
+  color: #1F2937;
+  padding: .5rem;
+}
+
+.boton-vender {
+  border: none;
+  background-color: #2563EB;
+  color: #f1f5f9;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.contenedor-contador {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #E5E7EB;
+
+}
+
+.contenedor-contador .boton-max {
+  background-color: #2563EB;
+  color: #f1f5f9;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.contenedor-contador .boton-min {
+  background-color: #2563EB;
+  color: #f1f5f9;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+.tr-vender {
+  text-align: center;
+}
+
+.contenedot-btn-venta {
+  text-align: center;
+}
+
+.boton-elimi-pro {
+  background-color: #EF4444;  
+  color: #f1f5f9;
+  font-size: 1rem;
+  padding: 2px;
+  font-weight: 600;
+  cursor: pointer;
+  
+  margin-top: 20px;
+}
+
+.venderProdu tr{
+  height: 20px;  
+}
+
+.venderProdu tr:nth-child(odd){
+  background-color: #334155;
+  color: #E5E7EB;
+}
+
+.venderProdu tr td {
+  padding: 1rem;
+  height: 20px;
+}
+
+.contenedor-total-pagar{
+  display: flex;
+  gap: 20px;
+}
+
+.parra{
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.total-pagar-valor{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 3rem;
+}
+
+.boton-total-pagar{
+  width:150px;
+  margin: 0;
+  padding: 5px;
 }

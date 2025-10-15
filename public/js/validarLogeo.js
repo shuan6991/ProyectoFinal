@@ -62,14 +62,16 @@ function menuUsuario() {
   if (userData.rol === "admin") {
         userName.innerHTML = userData.nombreCompleto + `
                 <ul class="submenuUsuairo">
-                        <li><a cla href="añadir-usuario.html">Crear Usuario</a></li>                        
-                        <li><a class="cerrar-sesion" href="index.html">Cerrar Sesion</a></li>                              
+                        <li><a  href="añadir-usuario.html">Crear Usuario</a></li>                        
+                        <li><a  href="vender-producto.html">Vender</a></li>       
+                        <li><a class="cerrar-sesion" href="index.html">Cerrar Sesion</a></li>                        
                 </ul>
        `
     }else{
           userName.innerHTML = userData.usuario + `
-                <ul class="submenuUsuairo">                        
-                    <li><a class="cerrar-sesion" href="">Cerrar Sesion</a></li>                              
+                <ul class="submenuUsuairo">    
+                    <li><a href="vender-producto.html">Vender</a></li>                     
+                    <li><a class="cerrar-sesion" href="">Cerrar Sesion</a></li>
                 </ul>
        `
     }

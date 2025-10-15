@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPM Gear-line</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" defer></script>
+
+</head>
+
+<body>
+
+    <header>
+        <div class="contenedor">
+            <div class="header-contenido">
+                <div class="header-logo-titulo">
+                    <img src="../img/logo.png" alt="Logo RPM Gear-line" class="logo-header" />
+                    <div class="header-title-group">
+                        <h1 class="header-title">RPM Gear-line</h1>
+                        <p class="subtitle">Inventario de productos y repuestos</p>
+                    </div>
+                </div>
+
+                <div class="header-usuario-darkmode">
+                    <ul class="menu-usuario">
+                        <li class="nombreUsuario">
+
+                        </li>
+                    </ul>
+                    <button class="theme-btn" id="themeToggle" title="Cambiar modo">
+                        <i class="fa fa-moon"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </header>
+
+      <section>        
+        <a class="imagen-volver" href="productos.html">
+            < Volver</a>
+    </section>
+
+
+    <main class="login-main">
+        <div class="login-container" style="max-width:900px;">
+            <h1 class="login-title">Ventas de Inventario</h1>
+
+            <section>
+                <form class="buscar-vender">
+                    <input class="buscar-codigo" required type="text" id="codigo" name="codigo"
+                        placeholder="Buscar por codigo">
+                    <input class="boton boton-buscar" type="submit" value="Buscar">
+                </form>
+            </section>
+
+            <section class="ver-product">
+
+            </section>
+
+            <!-- Tabla de inventario -->
+            <div>
+                <table class="table-inventario">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Código</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>total</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="venderProdu">
+                        <!-- Filas generadas por JS -->
+                    </tbody>                    
+                </table>
+
+                <div class="total-pagar-valor">
+                    <div  class="contenedor-total-pagar">
+                       
+                    </div>
+                    <button class="boton boton-total-pagar">Pagar</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script src="js/validarLogeo.js"></script>
+    <script src="js/productos.js"></script>
+</body>
+
+</html>

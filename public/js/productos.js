@@ -1,12 +1,10 @@
-let nombreProduct
-let codig
-let canti
-let price
 
 //creo la variable para el formualrio de productos
 let formProducto
 let formInventarioActua
 let fromBuscar;
+let buscarVender;
+let carrito = []
 
 document.addEventListener('DOMContentLoaded', () => {
     //variables formulario para ver info producto en los campos
@@ -19,10 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fromBuscar = document.querySelector('.buscar')
 
+    buscarVender = document.querySelector('.buscar-vender')
+
+
 
     datosProducto()
-    obtenerProductos() 
+    obtenerProductos()
     validarDatosFormBuscar()
+    fomtVender()
+
 
 })
 
@@ -80,7 +83,7 @@ function datosProducto() {
         //convierto los datos a un objeto
         const datos = Object.fromEntries(datosFomr.entries())
 
-          datos.codigo = datos.codigo.toUpperCase()
+        datos.codigo = datos.codigo.toUpperCase()
 
         //envio los datos a la funcion validarDatosProductos
         validarDatosProducto(datos)
@@ -335,11 +338,7 @@ function crearModal() {
             actualizarProducto(datos)
 
         })
-
     }
-
-
-
 }
 
 
@@ -531,9 +530,292 @@ function visualizarUnProducto(resultado) {
     eliminarImg.onclick = () => eliminarProduto(resultado.codigo)
 
     //guardo los datos en localStorage para tomarlos en la pagina de actualizar producto
-    actualizarImg.onclick = () => {      
+    actualizarImg.onclick = () => {
         localStorage.setItem('productoEditar', JSON.stringify(resultado))
         crearModal()
+    }
+
+}
+
+
+//buscar el producto para vender
+
+async function buscarVenderPro(datos) {
+    try {
+        const { codigo } = datos
+
+        const codigoMayus = codigo.toUpperCase()
+
+        const buscar = await fetch(`${urlBuscar}/${codigoMayus}`)
+
+        if (!buscar.ok) {
+            alert('el producto no exite')
+        } else{
+            
+        const productoNuevo = await buscar.json()
+
+        let almacenados = [productoNuevo]
+
+        if (!localStorage.getItem('vender')) {
+            localStorage.setItem('vender', JSON.stringify(almacenados))
+        } else {
+
+            const localResul = localStorage.getItem('vender')
+
+            const resulta = JSON.parse(localResul)
+
+            const itemExist = resulta.some(resul => resul.codigo === productoNuevo.codigo)
+          
+            if (!itemExist) {
+
+                almacenados = resulta;
+                let almacenadosNuevo = [...almacenados, productoNuevo]
+                localStorage.setItem('vender', JSON.stringify(almacenadosNuevo))
+
+            } else {
+                alert('El producto ya esta listado');
+            }
+        }
+        } 
+
+
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+//funcion obtener dartos para vendre
+
+function fomtVender() {
+    if (!buscarVender) return
+    const buscarCodigo = document.querySelector('.buscar-codigo')
+
+    buscarVender.addEventListener('submit', e => {
+        e.preventDefault()
+
+        const formDatos = new FormData(buscarVender)
+
+        const datos = Object.fromEntries(formDatos.entries())
+
+        buscarVenderPro(datos).then(() => {
+            vender()
+        })
+
+    })
+}
+
+
+//vender
+
+function vender() {
+
+    const verProduct = document.querySelector('.ver-product')
+
+
+    const datosventa = localStorage.getItem('vender')
+
+    const datos = JSON.parse(datosventa)
+
+    if (!verProduct || !datos) return
+
+
+    datos.forEach(d => {
+        const divVer = document.createElement('DIV')
+        let contador = 1
+        divVer.classList.add('ver-product-contenido')
+
+        const nombre = document.createElement('P')
+        const codigo = document.createElement('P')
+        const cantidad = document.createElement('P')
+        const precio = document.createElement('P')
+        const max = document.createElement('P')
+        const min = document.createElement('P')
+        const botonAgre = document.createElement('BUTTON')
+        const divCont = document.createElement('DIV')
+
+        divCont.classList.add('contenedor-contador')
+        max.classList.add('boton-max')
+        min.classList.add('boton-min')
+        botonAgre.classList.add('boton-vender')
+
+        divCont.appendChild(min)
+        divCont.appendChild(cantidad)
+        divCont.appendChild(max)
+
+        nombre.innerText = d.nombreProducto
+        codigo.innerText = d.codigo
+        min.innerText = "-"
+        cantidad.innerText = contador
+        max.innerText = "+"
+        precio.innerText = d.precio
+        botonAgre.innerText = 'Agregar'
+
+        max.onclick = () => {
+            contador++;
+            cantidad.innerText = contador;
+        };
+
+        min.onclick = () => {
+            if (contador > 1) {
+                contador--;
+                cantidad.innerText = contador;
+            }
+        };
+
+        verProduct.appendChild(divVer)
+        divVer.appendChild(nombre)
+        divVer.appendChild(codigo)
+        divVer.appendChild(divCont)
+        divVer.appendChild(precio)
+        divVer.appendChild(botonAgre)
+
+        botonAgre.onclick = () => {
+            tablaVender(d, contador)
+            localStorage.removeItem('vender')
+            verProduct.innerHTML = ' '
+        }
+
+    })
+
+}
+
+//agregar a la tabla vender
+
+function tablaVender(datos, contador) {
+
+    const venderProdu = document.querySelector('.venderProdu')
+    const contenedorTotalPagar = document.querySelector('.contenedor-total-pagar')
+    const botonTotalPagar = document.querySelector('.boton-total-pagar')
+
+
+    carrito.push(datos)
+
+    venderProdu.innerHTML = ' '
+
+    carrito.forEach(d => {
+
+        const total = contador * d.precio
+
+        const tr = document.createElement('TR')
+
+        tr.dataset.codigo = d.codigo;
+
+        venderProdu.appendChild(tr)
+        tr.classList.add('tr-vender')
+
+        tr.innerHTML = `
+            <td>${d.nombreProducto}</td>
+            <td>${d.codigo}</td>
+            <td>${contador}</td>
+            <td>${d.precio}</td> 
+            <td>${total}</td>     
+            <td'><p class='boton-elimi-pro'>X</p></td>     
+        `
+
+        d.cantidad = d.cantidad - contador
+
+        const botonElimiPro = tr.querySelector('.boton-elimi-pro');
+
+        if (!botonElimiPro) return
+
+        botonElimiPro.onclick = () => {
+            eliminarFilaVender(d.codigo)
+        }
+
+    })
+
+    contenedorTotalPagar.innerHTML = ''
+    const total = carrito.reduce((total, cart) => total + (contador * cart.precio), 0)
+
+    const totaPag = document.createElement('P')
+    const parraPro = document.createElement('P')
+    parraPro.classList.add('parra')
+    parraPro.innerText = 'Total a pagar:'
+
+     
+    totaPag.innerText = total
+    contenedorTotalPagar.appendChild(parraPro)
+    contenedorTotalPagar.appendChild(totaPag)
+
+
+
+    botonTotalPagar.onclick = () => {
+        enviarPago(carrito)
+    }
+
+}
+
+
+//eliminar fila de tabla vender
+function eliminarFilaVender(codigo) {
+    carrito = carrito.filter(cart => cart.codigo !== codigo);
+
+    // Volver a renderizar la tabla
+    const venderProdu = document.querySelector('.venderProdu');
+    venderProdu.innerHTML = '';
+
+    carrito.forEach(d => {
+        const total = d.cantidad * d.precio;
+
+        const tr = document.createElement('TR');
+        tr.dataset.codigo = d.codigo;
+        tr.classList.add('tr-vender');
+
+        tr.innerHTML = `
+            <td>${d.nombreProducto}</td>
+            <td>${d.codigo}</td>
+            <td>${d.cantidad}</td>
+            <td>${d.precio}</td> 
+            <td>${total}</td>     
+            <td><p class='boton-elimi-pro'>X</p></td>     
+        `;
+
+        venderProdu.appendChild(tr);
+
+        const botonElimiPro = tr.querySelector('.boton-elimi-pro');
+        botonElimiPro.onclick = () => eliminarFilaVender(d.codigo);
+    });
+
+    // Recalcular total
+    const contenedorTotalPagar = document.querySelector('.contenedor-total-pagar');
+    contenedorTotalPagar.innerHTML = '';
+    const total = carrito.reduce((total, cart) => total + (cart.cantidad * cart.precio), 0);
+    const totaPag = document.createElement('P');
+    totaPag.innerText = total;
+    contenedorTotalPagar.appendChild(totaPag);
+}
+
+
+//function para enviar pago
+
+async function enviarPago(carrito) {
+    try {
+        let actualizarCart = '';
+        for (const d of carrito) {
+
+            actualizarCart = await fetch(`${urlProduct}/${d.codigo}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(d)
+            })
+
+            await actualizarCart.json()
+
+        }
+
+        if (!actualizarCart) {
+            alert('no se realizo la venta')
+        }
+
+        alert('Se realizo venta')
+        location.href = "http://localhost:8000/productos.html"
+
+
+    } catch (error) {
+        console.log(error.message)
     }
 
 }
