@@ -19,7 +19,7 @@ iniciarConection()
 app.use(cors());
 const app = express()
 app.use(bodyParser.json())
-app.use(express.static(path.join(__dirname + `../${envs.publicPath}`)))
+app.use(express.static(path.join(__dirname + `../public`)))
 
 
 
@@ -28,7 +28,7 @@ app.use('/products', routerProduct)
 app.use('/users', routerUser)
 
  app.get('/', (req , res)=>{
-        const indexPath = path.join(__dirname + `../../${publicPath}/index.html`)
+        const indexPath = path.join(__dirname + `../../public/index.html`)
         res.sendFile(indexPath)
 })
 
