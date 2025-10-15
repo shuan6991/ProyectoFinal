@@ -213,7 +213,7 @@ h1.login-title {
 
 }
 
-.contenedor-indexar{
+.contenedor-indexar {
   display: flex;
   flex-direction: row;
   align-items: start;
@@ -335,7 +335,7 @@ button[type="submit"]:hover {
   background: var(--color-terciario);
 }
 
-.boton-indexar{
+.boton-indexar {
   margin: 0;
 }
 
@@ -560,15 +560,59 @@ img.logo-header {
 
 .acciones-img {
   width: 35px;
+  cursor: pointer;
 }
 
-.modal{
-  position: absolute;
+.modal {
+  position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+  animation: fede-in ease-in .5s;
+
+  &.fade-out{
+    animation: fade-out ease-in 0.5s;
+  }
+
+}
+
+.btn-cerrar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background-color: #E5E7EB;
+    border: none;
+    color: #1E293B;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 2rem;
+}
+
+
+.overFlow{
+  overflow: hidden;
+}
+
+@keyframes fede-in{
+   0% {
+        opacity: 0;
+    }
+    100%  {
+        opacity: 1;
+    }
+}
+
+
+@keyframes fade-out{
+    0% {
+        opacity: 1;
+    }
+    100%  {
+        opacity: 0;
+    }
 }

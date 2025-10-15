@@ -31,6 +31,10 @@ export const crearProducto = async (req, res) => {
     //se traen los datos utilizando desfragmentacion de objetos
     const { nombreProducto, codigo, cantidad, precio } = req.body
 
+    const codigoPro = await productos.findOne({codigo})
+
+    if(codigoPro) return res.status(401).json({message: `El producto con el codigo ${codigo} ya existes`})
+
     //se valida que los datos que envio el usuario no estn vacios
     if (!nombreProducto || !codigo || !cantidad || !precio)
 

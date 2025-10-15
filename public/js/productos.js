@@ -17,14 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     formProducto = document.querySelector('.formInventario')
 
-    formInventarioActua = document.querySelector('.formInventarioActua')
     fromBuscar = document.querySelector('.buscar')
 
 
     datosProducto()
-    obtenerProductos()
-    obtenerDatosProduc()
-    // verInfoProducFomr()
+    obtenerProductos() 
     validarDatosFormBuscar()
 
 })
@@ -51,7 +48,7 @@ async function validarDatosProducto(datos) {
         //valido si el resultado fue exitoso 
         if (!reaultado.ok) {
             const errorDatos = await reaultado.json()
-            throw new Error(errorDatos.message || `Error en la peticion http ${reaultado.status}`)
+            alert(errorDatos.message)
         }
 
         //si los datos estan correctos 
@@ -82,6 +79,8 @@ function datosProducto() {
 
         //convierto los datos a un objeto
         const datos = Object.fromEntries(datosFomr.entries())
+
+          datos.codigo = datos.codigo.toUpperCase()
 
         //envio los datos a la funcion validarDatosProductos
         validarDatosProducto(datos)
@@ -188,8 +187,8 @@ function insertarProduct(productos) {
 
         //guardo los datos en localStorage para tomarlos en la pagina de actualizar producto
         actualizarImg.onclick = () => {
-            crearModal()
             localStorage.setItem('productoEditar', JSON.stringify(datos))
+            crearModal()
         }
     });
 }
@@ -236,20 +235,41 @@ function eliminarFilaDeTabla(codigo) {
     filaAEliminar.remove();
 }
 
+//funcion para crear modal
 function crearModal() {
 
+    //tomo los datos del localStorage
     const datosEditar = localStorage.getItem('productoEditar')
+
+    //tomo el body 
     const body = document.querySelector('body')
+
+    //creo el div para el modal
     const modal = document.createElement('DIV')
 
+    //le añado una clase al modal
     modal.classList.add('modal')
 
-    body.appendChild(modal)
-    body.style.overflow = 'hidden'
+    //creo un boton para cerrar el modal
+    const cerrarModalBtn = document.createElement('BUTTON')
 
+    //le agrego un texto al boton
+    cerrarModalBtn.textContent = 'X'
+
+    //y le agrego una clase al boton
+    cerrarModalBtn.classList.add('btn-cerrar')
+
+    //agrego el modal al body
+    body.appendChild(modal)
+
+
+    //verifico que haya datos 
     if (datosEditar) {
+
+        //parseo los datos
         const datos = JSON.parse(datosEditar)
 
+        //inserto el formulario al modal
         modal.innerHTML = ` 
             
           <div class="login-container" style="max-width:900px;">
@@ -284,44 +304,66 @@ function crearModal() {
         
         `
 
+        //meto el boton de cerrar modal en el modal
+        modal.appendChild(cerrarModalBtn)
+
+        //le añado clase de overflow al body
+        body.classList.add('overFlow')
+
+        //añado evento de click al boton cerrarModal y llamo la clase de cerrarModal
+        cerrarModalBtn.onclick = () => cerrarModal()
+
+        //creo el evento del formulario
+        formInventarioActua = document.querySelector('.formInventarioActua')
+
+        //valido que el formulario exista
+        if (!formInventarioActua) return
+
+        //evento del formulario
+        formInventarioActua.addEventListener('submit', e => {
+            e.preventDefault()
+
+            //tomo los datos del formulario
+            const datosFromActua = new FormData(formInventarioActua)
+
+            //parseo los datos a bject
+            const datos = Object.fromEntries(datosFromActua.entries())
+
+
+            datos.codigo = datos.codigo.toUpperCase()
+            //envio los datos a la funcion actualizar
+            actualizarProducto(datos)
+
+        })
 
     }
 
-    modal.onclick = ()=>{
-        body.style.overflow='visible'
-        modal.remove()
-    }
+
 
 }
 
-// //creo funcion para ver los datos en los campos de actualiza producto
-// function verInfoProducFomr() {
 
-//     //tomo los datos del localStorage
-//     const datosEditar = localStorage.getItem('productoEditar')
+//clase para cerrar el modal
+function cerrarModal() {
 
+    //llamo el modal
+    const modal = document.querySelector('.modal')
 
-//     //verifico que tenga informacion
-//     if (datosEditar) {
+    //le añado clase de animacion para cerrar
+    modal.classList.add('fade-out')
 
-//         //parseo los datos 
-//         const datos = JSON.parse(datosEditar)
+    //agrego un tiempo de cerrado
+    setTimeout(() => {
+        //quito el modal del body
+        modal?.remove()
 
-//         //verifico que los campos existan en la pagina y seteo la informacion en el campo
-//         if (nombreProduct) nombreProduct.value = datos.nombreProducto
+        //llamo al body
+        const body = document.querySelector('body')
+        body.classList.remove('overFlow')
 
-//         //verifico que los campos existan en la pagina y seteo la informacion en el campo
-//         if (codig) codig.value = datos.codigo
+    }, 500)
+}
 
-//         //verifico que los campos existan en la pagina y seteo la informacion en el campo
-//         if (canti) canti.value = datos.cantidad
-
-//         //verifico que los campos existan en la pagina y seteo la informacion en el campo
-//         if (price) price.value = datos.precio
-
-//     }
-
-// }
 
 //creo funcion para actualizar producto
 async function actualizarProducto(datos) {
@@ -361,26 +403,6 @@ async function actualizarProducto(datos) {
     }
 }
 
-//obtengo los datos del producto a actaulizar
-function obtenerDatosProduc() {
-    //valido que el formulario exista
-    if (!formInventarioActua) return
-
-    //evento del formulario
-    formInventarioActua.addEventListener('submit', e => {
-        e.preventDefault()
-
-        //tomo los datos del formulario
-        const datosFromActua = new FormData(formInventarioActua)
-
-        //parseo los datos a bject
-        const datos = Object.fromEntries(datosFromActua.entries())
-
-        //envio los datos a la funcion actualizar
-        actualizarProducto(datos)
-
-    })
-}
 
 //creo funcion para buscar producto
 async function buscarProductoCodigo(datos) {
@@ -424,6 +446,7 @@ function validarDatosFormBuscar() {
         //parseo los datos 
         const datos = Object.fromEntries(datosForm.entries())
         //envio los datos a la funcion buscarProductoCodigo
+
         buscarProductoCodigo(datos)
     })
 
@@ -471,9 +494,7 @@ function visualizarUnProducto(resultado) {
     const linkEliminar = document.createElement('A')
 
 
-    //asigno direaccion a las img
-    linkActualizar.href = 'actualizar-producto.html'
-    linkEliminar.href = '#'
+    //asigno direaccion a las img  
 
     //le coloco la ruta a las img
     actualizarImg.src = "../img/editar.png"
@@ -510,6 +531,9 @@ function visualizarUnProducto(resultado) {
     eliminarImg.onclick = () => eliminarProduto(resultado.codigo)
 
     //guardo los datos en localStorage para tomarlos en la pagina de actualizar producto
-    actualizarImg.onclick = () => localStorage.setItem('productoEditar', JSON.stringify(resultado))
+    actualizarImg.onclick = () => {      
+        localStorage.setItem('productoEditar', JSON.stringify(resultado))
+        crearModal()
+    }
 
 }
