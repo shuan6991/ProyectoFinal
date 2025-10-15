@@ -321,53 +321,62 @@ function obtenerDatosProduc() {
     })
 }
 
+//creo funcion para buscar producto
 async function buscarProductoCodigo(datos) {
     try {
-
+       //destruturo datos para obtener el codigo
         const { codigo } = datos
 
-        const resultado = await fetch(`${urlBuscar}/${codigo}`)
+        //convierto el codigo todo en mayusculas por si viene en minusculas
+        const codigoMayus = codigo.toUpperCase()
 
-        if (!resultado.ok) {    
+        //creo mi fetch api para buscar
+        const resultado = await fetch(`${urlBuscar}/${codigoMayus}`)
+
+        //valido la respuesta del resulatado
+        if (!resultado.ok) {  
+            //creo el alert si la respuesta no esta bien  
             alert('El codigo del producto es incorrecto')
             return
         }
 
+        //si la respuesta esta bien llamo la funcion visualizarUnProducto
         visualizarUnProducto(await resultado.json())
 
     } catch (error) {
+        //si hay error en el server mando mensaje de error
         console.log(error.message)
     }
 }
 
 // validar datos del formulariobuscar producto por codigo
-
 function validarDatosFormBuscar() {
-
+ //validdo que el formulario  exista en la pagina
     if (!fromBuscar) return
-
+    //creo evento del formulario
     fromBuscar.addEventListener('submit', e => {
-
+        //quieto el prevent default
         e.preventDefault()
 
+        //obtengo los datos 
         const datosForm = new FormData(fromBuscar)
-
+        //parseo los datos 
         const datos = Object.fromEntries(datosForm.entries())
-
+        //envio los datos a la funcion buscarProductoCodigo
         buscarProductoCodigo(datos)
     })
 
 }
 
 function visualizarUnProducto(resultado) {
-
+    //llamo el tebody
     const productoLinea = document.querySelector('.inventarioBody')
-
+   
+    //seteo el body
     productoLinea.innerHTML = '';
 
+    //se valida que exista el tebody y el resultado
     if (!productoLinea || !resultado) return
-
-
 
     //creo el tr
     const tr = document.createElement('TR')
@@ -441,7 +450,5 @@ function visualizarUnProducto(resultado) {
 
     //guardo los datos en localStorage para tomarlos en la pagina de actualizar producto
     actualizarImg.onclick = () => localStorage.setItem('productoEditar', JSON.stringify(resultado))
-
-
 
 }
