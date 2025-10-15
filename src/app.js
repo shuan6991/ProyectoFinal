@@ -28,7 +28,7 @@ app.use('/products', routerProduct)
 app.use('/users', routerUser)
 
  app.get('/', (req , res)=>{
-        const indexPath = path.join(__dirname + `../../${publicPath}/login.html`)
+        const indexPath = path.join(__dirname + `../../${publicPath}/index.html`)
         res.sendFile(indexPath)
 })
 
