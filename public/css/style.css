@@ -29,6 +29,7 @@ body {
   color: var(--color-texto);
   min-height: 100vh;
   transition: all ease .5s;
+
 }
 
 .contenedor {
@@ -417,6 +418,10 @@ body.dark-mode .input-group {
   border: 1px solid #475569;
 }
 
+body.dark-mode a {
+  color: var(--color-texto);
+}
+
 body.dark-mode .input-group input {
   color: var(--color-texto);
 }
@@ -555,4 +560,15 @@ img.logo-header {
 
 .acciones-img {
   width: 35px;
+}
+
+.modal{
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
 }

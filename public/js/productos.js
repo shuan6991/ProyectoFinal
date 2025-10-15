@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     datosProducto()
     obtenerProductos()
-    verInfoProducFomr()
     obtenerDatosProduc()
+    // verInfoProducFomr()
     validarDatosFormBuscar()
 
 })
@@ -150,10 +150,7 @@ function insertarProduct(productos) {
         const linkActualizar = document.createElement('A')
         const linkEliminar = document.createElement('A')
 
-
-        //asigno direaccion a las img
-        linkActualizar.href = 'actualizar-producto.html'
-        linkEliminar.href = '#'
+        // linkActualizar.href = 'actualizar-producto.html'
 
         //le coloco la ruta a las img
         actualizarImg.src = "../img/editar.png"
@@ -190,9 +187,14 @@ function insertarProduct(productos) {
         eliminarImg.onclick = () => eliminarProduto(datos.codigo)
 
         //guardo los datos en localStorage para tomarlos en la pagina de actualizar producto
-        actualizarImg.onclick = () => localStorage.setItem('productoEditar', JSON.stringify(datos))
+        actualizarImg.onclick = () => {
+            crearModal()
+            localStorage.setItem('productoEditar', JSON.stringify(datos))
+        }
     });
 }
+
+
 
 //Eliminar el producto
 async function eliminarProduto(codigo) {
@@ -234,33 +236,92 @@ function eliminarFilaDeTabla(codigo) {
     filaAEliminar.remove();
 }
 
-//creo funcion para ver los datos en los campos de actualiza producto
-function verInfoProducFomr() {
+function crearModal() {
 
-    //tomo los datos del localStorage
     const datosEditar = localStorage.getItem('productoEditar')
+    const body = document.querySelector('body')
+    const modal = document.createElement('DIV')
 
-    //verifico que tenga informacion
+    modal.classList.add('modal')
+
+    body.appendChild(modal)
+    body.style.overflow = 'hidden'
+
     if (datosEditar) {
-
-        //parseo los datos 
         const datos = JSON.parse(datosEditar)
 
-        //verifico que los campos existan en la pagina y seteo la informacion en el campo
-        if (nombreProduct) nombreProduct.value = datos.nombreProducto
+        modal.innerHTML = ` 
+            
+          <div class="login-container" style="max-width:900px;">
+            <h1 class="login-title">Formulario Producto</h1>
+            <!-- Formulario de producto -->
+            <form class="formInventarioActua" style="margin-bottom:24px;">
+                <div class="input-group">
+                    <i class="fa fa-box"></i>
+                    <input type="text" id="nombreProductoActu" value='${datos.nombreProducto}' name="nombreProducto" placeholder="Nombre del producto" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa fa-barcode"></i>
+                    <input type="text" id="codigoActu" value='${datos.codigo}' name="codigo" placeholder="Código Producto" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa fa-sort-numeric-up"></i>
+                    <input type="number" id="cantidadActu" value='${datos.cantidad}' name="cantidad" placeholder="cantidad" min="1" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa fa-dollar-sign"></i>
+                    <input type="number" id="precioActu" name="precio" value='${datos.precio}' placeholder="Precio" min="0" step="0.01" required>
+                </div>
+                <button type="submit">
+                    <i class="fa fa-plus"></i> Actualizar producto
+                </button>
+            </form>
+            <!-- Mensajes -->
+            <div class="output-success" id="msgSuccess" style="display:none;"></div>
+            <div class="output-error" id="msgError" style="display:none;"></div>
+            <!-- Tabla de inventario -->
+        </div>
+        
+        `
 
-        //verifico que los campos existan en la pagina y seteo la informacion en el campo
-        if (codig) codig.value = datos.codigo
-
-        //verifico que los campos existan en la pagina y seteo la informacion en el campo
-        if (canti) canti.value = datos.cantidad
-
-        //verifico que los campos existan en la pagina y seteo la informacion en el campo
-        if (price) price.value = datos.precio
 
     }
 
+    modal.onclick = ()=>{
+        body.style.overflow='visible'
+        modal.remove()
+    }
+
 }
+
+// //creo funcion para ver los datos en los campos de actualiza producto
+// function verInfoProducFomr() {
+
+//     //tomo los datos del localStorage
+//     const datosEditar = localStorage.getItem('productoEditar')
+
+
+//     //verifico que tenga informacion
+//     if (datosEditar) {
+
+//         //parseo los datos 
+//         const datos = JSON.parse(datosEditar)
+
+//         //verifico que los campos existan en la pagina y seteo la informacion en el campo
+//         if (nombreProduct) nombreProduct.value = datos.nombreProducto
+
+//         //verifico que los campos existan en la pagina y seteo la informacion en el campo
+//         if (codig) codig.value = datos.codigo
+
+//         //verifico que los campos existan en la pagina y seteo la informacion en el campo
+//         if (canti) canti.value = datos.cantidad
+
+//         //verifico que los campos existan en la pagina y seteo la informacion en el campo
+//         if (price) price.value = datos.precio
+
+//     }
+
+// }
 
 //creo funcion para actualizar producto
 async function actualizarProducto(datos) {
@@ -324,7 +385,7 @@ function obtenerDatosProduc() {
 //creo funcion para buscar producto
 async function buscarProductoCodigo(datos) {
     try {
-       //destruturo datos para obtener el codigo
+        //destruturo datos para obtener el codigo
         const { codigo } = datos
 
         //convierto el codigo todo en mayusculas por si viene en minusculas
@@ -334,7 +395,7 @@ async function buscarProductoCodigo(datos) {
         const resultado = await fetch(`${urlBuscar}/${codigoMayus}`)
 
         //valido la respuesta del resulatado
-        if (!resultado.ok) {  
+        if (!resultado.ok) {
             //creo el alert si la respuesta no esta bien  
             alert('El codigo del producto es incorrecto')
             return
@@ -351,7 +412,7 @@ async function buscarProductoCodigo(datos) {
 
 // validar datos del formulariobuscar producto por codigo
 function validarDatosFormBuscar() {
- //validdo que el formulario  exista en la pagina
+    //validdo que el formulario  exista en la pagina
     if (!fromBuscar) return
     //creo evento del formulario
     fromBuscar.addEventListener('submit', e => {
@@ -371,7 +432,7 @@ function validarDatosFormBuscar() {
 function visualizarUnProducto(resultado) {
     //llamo el tebody
     const productoLinea = document.querySelector('.inventarioBody')
-   
+
     //seteo el body
     productoLinea.innerHTML = '';
 
