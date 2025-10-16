@@ -15,6 +15,8 @@ const __dirname = dirname(__filename);
 
 config()
 
+const port = process.env.PORT || 5000
+
 const app = express()
 
 
@@ -39,7 +41,9 @@ app.get('/', (req, res) => {
 })
 
 
-
+    // app.listen(port, ()=>{
+    //     console.log(`El servidor esta escuchando por el puerto ${port}`)
+    // })
 
 // iniciarServidor(app)
 
