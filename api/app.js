@@ -34,9 +34,7 @@ app.get('/', (req, res) => {
     res.sendFile(indexPath)
 })
 
-app.listen(port, () => {
-    console.log(`El servidor esta escuchando por el puerto ${port}`)
-})
+
 
 // iniciarServidor(app)
 
