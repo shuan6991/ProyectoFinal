@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 //creo la uel para los datos 
-const urlProduct = "https://rpm-gear-line.vercel.app/products";
-const urlBuscar = "https://rpm-gear-line.vercel.app/buscarProductoCodigo"
+const urlProduct = "https://proyecto-final-hniz.vercel.app/products";
+const urlBuscar = "https://proyecto-final-hniz.vercel.app/buscarProductoCodigo"
 
 
 //creo funcion para validar los datos
