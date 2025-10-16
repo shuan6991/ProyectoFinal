@@ -9,8 +9,8 @@ const fomrLogin = document.querySelector('#loginForm')
 
 const formUsuario = document.querySelector('.formUsuario')
 
-const urlLogin = 'https://rpm-gear-line.vercel.app/users/login'
-const urlUsuario = 'https://rpm-gear-line.vercel.app/users'
+const urlLogin = 'https://rpm-gear-line.vercel.app/api/users/login'
+const urlUsuario = 'https://rpm-gear-line.vercel.app/api/users'
 
 // Modo oscuro
 function setupPersistentDarkMode() {
