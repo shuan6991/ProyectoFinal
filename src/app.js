@@ -1,13 +1,13 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import routerUser from '../src/routers/usuarios.router.js'
-import routerProduct from '../src/routers/productos.router.js'
-import { iniciarConection } from '../src/conexion/conection.js'
+import routerUser from './routers/usuarios.router.js'
+import routerProduct from './routers/productos.router.js'
+import { iniciarConection } from './conexion/conection.js'
 // import { iniciarServidor } from './conexion/server.js'
 import cors from 'cors'
 import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { envs } from '../src/config/env.js'
+import { envs } from './config/env.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
