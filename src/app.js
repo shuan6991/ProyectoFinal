@@ -29,14 +29,14 @@ app.use(express.static(path.join(__dirname, "../public")))
 app.use('/products', routerProduct)
 app.use('/users', routerUser)
 
-// app.get('/', (req, res) => {
-//     const indexPath = path.join(__dirname, `../../public/index.html`)
-//     res.sendFile(indexPath)
-// })
-
 app.get('/', (req, res) => {
-  res.send('API funcionando ✅');
-});
+    const indexPath = path.join(__dirname, `../../public/index.html`)
+    res.sendFile(indexPath)
+})
+
+// app.get('/', (req, res) => {
+//   res.send('API funcionando ✅');
+// });
 
 
 
