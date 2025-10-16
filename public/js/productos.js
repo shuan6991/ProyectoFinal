@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 //creo la uel para los datos 
-const urlProduct = "http://localhost:8000/products";
-const urlBuscar = "http://localhost:8000/products/buscarProductoCodigo"
+const urlProduct = "https://rpm-gear-line.vercel.app/products";
+const urlBuscar = "https://rpm-gear-line.vercel.app/buscarProductoCodigo"
 
 
 //creo funcion para validar los datos
@@ -58,7 +58,7 @@ async function validarDatosProducto(datos) {
         await reaultado.json()
         //redirijo a la pagina de productos
         alert('El producto se creo correctamente')
-        location.href = "http://localhost:8000/productos.html"
+        location.href = "https://rpm-gear-line.vercel.app/productos.html"
 
 
     } catch (error) {
@@ -394,7 +394,7 @@ async function actualizarProducto(datos) {
         localStorage.removeItem('productoEditar')
 
         //redigirmos a la pagina de productos
-        location.href = 'http://localhost:8000/productos.html'
+        location.href = 'https://rpm-gear-line.vercel.app/productos.html'
 
     } catch (error) {
         //Mensaje de error si hay un error en el server
@@ -811,7 +811,7 @@ async function enviarPago(carrito) {
         }
 
         alert('Se realizo venta')
-        location.href = "http://localhost:8000/productos.html"
+        location.href = "https://rpm-gear-line.vercel.app/productos.html"
 
 
     } catch (error) {

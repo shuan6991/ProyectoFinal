@@ -12,7 +12,7 @@ function validarLogeo() {
     if (!userDataJSON) {
         console.log('no hay datos de usuarioi')
         //si no  existe redirijo a la pagina de logeo
-        location.href = 'http://localhost:8000/index.html'
+        location.href = 'https://rpm-gear-line.vercel.app/index.html'
 
         return;
     }
@@ -28,7 +28,7 @@ function validarLogeo() {
             localStorage.removeItem("userData")
 
             //se redirige a la pagina principal
-            location.href = 'http://localhost:8000/index.html'
+            location.href = 'https://rpm-gear-line.vercel.app/index.html'
 
             return;
         }
@@ -42,7 +42,7 @@ function validarLogeo() {
         //se eliminda el userData del localStorage
         localStorage.removeItem("userData");
         //se redirige a la pagina principal
-        location.href = 'http://localhost:8000/index.html';
+        location.href = 'https://rpm-gear-line.vercel.app/index.html';
 
     }
 }

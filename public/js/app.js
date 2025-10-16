@@ -9,8 +9,8 @@ const fomrLogin = document.querySelector('#loginForm')
 
 const formUsuario = document.querySelector('.formUsuario')
 
-const urlLogin = 'http://localhost:8000/users/login'
-const urlUsuario = 'http://localhost:8000/users'
+const urlLogin = 'https://rpm-gear-line.vercel.app/users/login'
+const urlUsuario = 'https://rpm-gear-line.vercel.app/users'
 
 // Modo oscuro
 function setupPersistentDarkMode() {
@@ -84,7 +84,7 @@ async function validarDatos(data) {
 
             //Envio mensaje de inicio de sesion
             alert('inicio de sesion exitos Bienvenido ' + usuarioLogeo.nombreCompleto)
-            location.href = "http://localhost:8000/productos.html"
+            location.href = "https://rpm-gear-line.vercel.app/productos.html"
 
         } else {
             throw new Error('Respuesta del servdor invalida')
@@ -122,7 +122,7 @@ function validarLogeo() {
     if (!userDataJSON) {
         console.log('no hay datos de usuarioi')
         //si no  existe redirijo a la pagina de logeo
-        location.href = 'http://localhost:8000/index.html'
+        location.href = 'https://rpm-gear-line.vercel.app/index.html'
 
         return;
     }
@@ -138,7 +138,7 @@ function validarLogeo() {
             localStorage.removeItem("userData")
 
             //se redirige a la pagina principal
-            location.href = 'http://localhost:8000/index.html'
+            location.href = 'https://rpm-gear-line.vercel.app/index.html'
 
             return;
         }
@@ -152,7 +152,7 @@ function validarLogeo() {
         //se eliminda el userData del localStorage
         localStorage.removeItem("userData");
         //se redirige a la pagina principal
-        location.href = 'http://localhost:8000/index.html';
+        location.href = 'https://rpm-gear-line.vercel.app/index.html';
 
     }
 }
@@ -175,7 +175,7 @@ async function crarUsuario(datos) {
 
         await resultado.json()
         alert('El usuario se creo corectamente')
-        location.href = 'http://localhost:8000/productos.html'
+        location.href = 'https://rpm-gear-line.vercel.app/productos.html'
     } catch (error) {
         console.log(error.message)
     }
