@@ -2,16 +2,16 @@
 import { usuarios } from '../models/usuarios.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from "bcryptjs";
-import { envs } from '../config/env.js';
+import { config } from 'dotenv';
 
 
-const { jwtSecret } = envs
+config()
 
 const generarToken = (usuario) => {
 
     return jwt.sign(
         { id: usuario._id, email: usuario.usuario },
-        jwtSecret,
+        process.env.JWT_SECRET,
         { expiresIn: "1h" }
     );
 };
