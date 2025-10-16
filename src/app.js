@@ -8,14 +8,14 @@ import { iniciarConection } from './conexion/conection.js'
 import cors from 'cors'
 import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { envs } from './config/env.js'
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 config()
 
-const port = process.env.PORT || 5000
+
 
 const app = express()
 
